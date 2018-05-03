@@ -15,6 +15,7 @@ import io.github.bananapuncher714.brickboard.chat.ChatMessage;
 import io.github.bananapuncher714.brickboard.objects.BoxCoord;
 
 public class ChatBoxTicker extends ChatBox {
+	private String separator = "  \u2588  ";
 	protected String tickerTape;
 	protected int tickerIndex = 0;
 	
@@ -25,9 +26,10 @@ public class ChatBoxTicker extends ChatBox {
 		try {
 			while ( ( line = reader.readLine() ) != null ) {
 				if ( line.isEmpty() ) {
-					builder.append( "  \u2603  " );
+					continue;
 				} else {
 					builder.append( line );
+					builder.append( separator );
 				}
 			}
 		} catch ( IOException e ) {

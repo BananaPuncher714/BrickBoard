@@ -6,6 +6,11 @@ import java.util.List;
 
 import org.bukkit.ChatColor;
 
+/**
+ * Parallel implementation of vanilla style JSON formatting, except simpler
+ * 
+ * @author BananaPuncher714
+ */
 public class ChatMessage implements Cloneable {
 	private final List< ChatComponent > components = new ArrayList< ChatComponent >();
 

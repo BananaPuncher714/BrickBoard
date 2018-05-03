@@ -13,8 +13,20 @@ import io.github.bananapuncher714.brickboard.gui.ChatBox;
 import io.github.bananapuncher714.brickboard.objects.BoxCoord;
 import io.github.bananapuncher714.brickboard.objects.MinecraftFontContainer;
 
+/**
+ * Utility class for handling ChatMessages and manipulating them
+ * 
+ * @author BananaPuncher714
+ */
 public class MessageUtil {
 
+	/**
+	 * Get the length of a given ChatMessage
+	 * 
+	 * @param message
+	 * @param container
+	 * @return
+	 */
 	public static int lengthOf( ChatMessage message, MinecraftFontContainer container ) {
 		if ( message == null ) {
 			return -1;
@@ -32,6 +44,14 @@ public class MessageUtil {
 		return len;
 	}
 	
+	/**
+	 * Split a given ChatMessage into messages of the width provided; Has a buffer of 2 pixels
+	 * 
+	 * @param width
+	 * @param message
+	 * @param container
+	 * @return
+	 */
 	public static ChatMessage[] split( int width, ChatMessage message, MinecraftFontContainer container ) {
 		// This is so the extend method can work properly, because there is no character with a width of 1
 		final int PADDING = 2;
@@ -156,14 +176,23 @@ public class MessageUtil {
 		return components;
 	}
 
+	/**
+	 * Extend a ChatMessage to the given width exactly, uses randomly placed periods
+	 * 
+	 * @param width
+	 * @param message
+	 * @param container
+	 * @return
+	 */
 	public static boolean extend( int width, ChatMessage message, MinecraftFontContainer container ) {
 		int len = lengthOf( message, container );
+		int spaceWidth = container.getCharWidth( ' ' );
 		int diff = width - len;
 		if ( len >= width ) {
 			return false;
 		}
-		int spaces = diff / 4;
-		int spaceLeft = diff - ( spaces * 4 );
+		int spaces = diff / spaceWidth;
+		int spaceLeft = diff - ( spaces * spaceWidth );
 		if ( spaceLeft == 1 ) {
 			spaces = spaces - 1;
 		}
@@ -185,10 +214,17 @@ public class MessageUtil {
 		return true;
 	}
 
-	public static String insertRandomChar( String message, char characters ) {
+	/**
+	 * Insert a random character into a string, excluding the first and last position; Does not replace
+	 * 
+	 * @param message
+	 * @param characters
+	 * @return
+	 */
+	public static String insertRandomChar( String message, char character ) {
 		int max = message.length() - 1;
 		int place = ( int ) ( Math.random() * ( max - 1 ) + 1 );
-		return message.substring( 0, place ) + characters + message.substring( place );
+		return message.substring( 0, place ) + character + message.substring( place );
 	}
 	
 	// TODO do this, eventually?
@@ -202,6 +238,15 @@ public class MessageUtil {
 //		return true;
 //	}
 
+	/**
+	 * Split the output from a ChatBox and extend the parts up to the width described in the width of the BoxCoord
+	 * 
+	 * @param player
+	 * @param container
+	 * @param coord
+	 * @param fontContainer
+	 * @return
+	 */
 	public static ChatMessage[] truncateAndExtend( Player player, ChatBox container, BoxCoord coord, MinecraftFontContainer fontContainer ) {
 		ChatMessage[] lines = new ChatMessage[ coord.getHeight() ];
 		int width = coord.getWidth();

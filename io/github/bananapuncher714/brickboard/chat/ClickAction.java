@@ -1,5 +1,10 @@
 package io.github.bananapuncher714.brickboard.chat;
 
+/**
+ * Allow messages to do something when clicked on
+ * 
+ * @author BananaPuncher714
+ */
 public class ClickAction implements Cloneable {
 	protected Action action;
 	protected String message;

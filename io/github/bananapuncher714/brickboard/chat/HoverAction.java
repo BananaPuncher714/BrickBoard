@@ -1,5 +1,10 @@
 package io.github.bananapuncher714.brickboard.chat;
 
+/**
+ * Allow messages to be displayed when hovered over; Text must use legacy formatting
+ * 
+ * @author BananaPuncher714
+ */
 public class HoverAction implements Cloneable {
 	protected Action action;
 	protected String message;

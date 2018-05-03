@@ -17,10 +17,14 @@ import io.github.bananapuncher714.brickboard.util.MessageUtil;
 
 public class Board {
 	protected Map< ChatBox, BoxCoord > containers = new HashMap< ChatBox, BoxCoord >();
-	protected String id;
+	protected final String id;
 
 	public Board( String id ) {
 		this.id = id;
+	}
+	
+	public String getId() {
+		return id;
 	}
 
 	public ChatMessage getMessage( Player player ) {
@@ -63,9 +67,6 @@ public class Board {
 			}
 		}
 		GuiUtil.organize( containers );
-		for ( BoxCoord coord : containers.values() ) {
-			System.out.println( "Coordinate of container: " + coord.getX() + ", " + coord.getY() + " : " + coord.getWidth() + ", " + coord.getHeight() );
-		}
 	}
 
 	private boolean doesLineContain( int line, BoxCoord coord ) {

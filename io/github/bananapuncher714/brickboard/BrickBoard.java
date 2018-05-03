@@ -7,8 +7,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.comphenix.tinyprotocol.TinyProtocol;
-
 import io.github.bananapuncher714.brickboard.board.Board;
 import io.github.bananapuncher714.brickboard.chat.ChatComponent;
 import io.github.bananapuncher714.brickboard.chat.ChatMessage;
@@ -30,8 +28,14 @@ import io.github.bananapuncher714.brickboard.objects.BoxCoord;
 import io.github.bananapuncher714.brickboard.objects.MinecraftFontContainer;
 import io.github.bananapuncher714.brickboard.util.MessageUtil;
 import io.github.bananapuncher714.brickboard.util.ReflectionUtils;
+import io.github.bananapuncher714.tinyprotocol.TinyProtocol;
 import io.netty.channel.Channel;
 
+/**
+ * "Crushing the competition since 2018"
+ * 
+ * @author BananaPuncher714
+ */
 public class BrickBoard extends JavaPlugin {
 	/**
 	 * The character prefixed by all messages which get sent to the player
@@ -55,6 +59,8 @@ public class BrickBoard extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		instance = this;
+		
+		saveResource( "README.md", true );
 		
 		tProtocol = new TinyProtocol( this ) {
 			@Override

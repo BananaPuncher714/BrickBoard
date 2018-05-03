@@ -134,6 +134,9 @@ public class MinecraftFontContainer {
         }
     }
     
+    /**
+     * Returns the width of this message. Does not check if message is bold, and strips all color codes
+     */
     public int getStringWidth( String message, boolean isBold ) {
     	int len = 0;
     	for ( char ch : ChatColor.stripColor( message ).toCharArray() ) {

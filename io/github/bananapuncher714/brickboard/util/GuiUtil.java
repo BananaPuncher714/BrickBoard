@@ -11,6 +11,11 @@ import io.github.bananapuncher714.brickboard.objects.BoxCoord;
 
 public class GuiUtil {
 
+	/**
+	 * Extend a set of BoxCoords so that they take up the most space possible; Stretch right first, then down, left, and up
+	 * 
+	 * @param containers
+	 */
 	public static void organize( Map< ChatBox, BoxCoord > containers ) {
 		// Here starts the 4 loops to stretch in the 4 directions
 		for ( int stretch = 1; stretch < 5; stretch ++ ) {

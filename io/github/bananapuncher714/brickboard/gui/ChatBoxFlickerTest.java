@@ -30,6 +30,7 @@ public class ChatBoxFlickerTest extends ChatBox {
 		List< ChatMessage > flickers = new ArrayList< ChatMessage >();
 		int length = BrickBoard.getInstance().getDefaultFont().getStringWidth( CHARS, false );
 		int amount = coord.getWidth() / length;
+		
 		for ( int i = 0; i < coord.getHeight(); i++ ) {
 			ChatMessage row = new ChatMessage();
 			for ( int j = 0; j < amount; j++ ) {

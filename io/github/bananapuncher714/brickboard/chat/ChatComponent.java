@@ -2,6 +2,11 @@ package io.github.bananapuncher714.brickboard.chat;
 
 import org.bukkit.ChatColor;
 
+/**
+ * Simple chat wrapper; The text should not contain any color codes!
+ * 
+ * @author BananaPuncher714
+ */
 public class ChatComponent implements Cloneable {
 	protected String text;
 	protected boolean bold = false, underline = false, italic = false, random = false, strikethrough = false;
