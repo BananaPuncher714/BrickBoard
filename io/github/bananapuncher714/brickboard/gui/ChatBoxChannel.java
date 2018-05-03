@@ -59,6 +59,11 @@ public class ChatBoxChannel extends ChatBox {
 				}
 			}
 		}
+		int len = rows - chat.size();
+		for ( int i = 0; i < len; i++ ) {
+			chat.add( ChatMessage.getMessageFromString( " " ) );
+		}
+		
 		Util.reverseList( chat );
 		messages.addAll( chat );
 		

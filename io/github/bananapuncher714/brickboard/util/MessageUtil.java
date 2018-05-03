@@ -227,6 +227,16 @@ public class MessageUtil {
 		return message.substring( 0, place ) + character + message.substring( place );
 	}
 	
+	public static ChatMessage center( ChatMessage message, int width, char space, MinecraftFontContainer container ) {
+		int len = lengthOf( message, container );
+		if ( len < width ) {
+			int diff = ( width - len ) / ( 2 * container.getCharWidth( space ) );
+			String repeated = StringUtils.repeat( space, diff );
+			message = new ChatMessage().addComponent( new ChatComponent( repeated ) ).merge( message ).addComponent( new ChatComponent( repeated ) );
+		}
+		return message;
+	}
+	
 	// TODO do this, eventually?
 //	public static boolean translateTabs( ChatMessage message, BoxCoord coord ) {
 //		final int TAB = 16;

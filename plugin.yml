@@ -4,7 +4,6 @@ version: 0.2
 description: GUIS made easy with chat
 author: BananaPuncher714
 commands:
-  len:
-    description: Test command
   brickboard:
-    description: Does stuff
+    aliases:
+    - "bb"

@@ -6,6 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import io.github.bananapuncher714.brickboard.board.Board;
 import io.github.bananapuncher714.brickboard.chat.ChatComponent;
@@ -15,6 +16,7 @@ import io.github.bananapuncher714.brickboard.chat.HoverAction;
 import io.github.bananapuncher714.brickboard.commands.BrickExecutor;
 import io.github.bananapuncher714.brickboard.commands.actions.CCommandChangeChannel;
 import io.github.bananapuncher714.brickboard.commands.actions.CCommandScroll;
+import io.github.bananapuncher714.brickboard.gui.ChatBoxAeNet;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxChannel;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxFiller;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxFlickerTest;
@@ -45,14 +47,26 @@ public class BrickBoard extends JavaPlugin {
 	 * The length of the Minecraft chat; May change depending on client settings; Not recommended to set above 316
 	 */
 	public static final int CHAT_LEN = 316;
-	
+	/**
+	 * Singleton class management
+	 */
 	private static BrickBoard instance;
+	
 	
 	MinecraftFontContainer defaultFont = new MinecraftFontContainer( getResource( "data/ascii.png" ), getResource( "data/default_font.bin" ) );
 	BrickExecutor command;
 	
-	TinyProtocol tProtocol;
-	PacketHandler handler;
+	
+	private TinyProtocol tProtocol;
+	private PacketHandler handler;
+	private BukkitRunnable runnable = new BukkitRunnable() {
+		@Override
+		public void run() {
+			for ( Player player : Bukkit.getOnlinePlayers() ) {
+				handler.sendMessage( player, breadBoard.getMessage( player ) );
+			}
+		}
+	};
 	
 	Board breadBoard;
 	
@@ -60,8 +74,7 @@ public class BrickBoard extends JavaPlugin {
 	public void onEnable() {
 		instance = this;
 		
-		saveResource( "README.md", true );
-		
+		handler = ReflectionUtils.getNewPacketHandlerInstance();
 		tProtocol = new TinyProtocol( this ) {
 			@Override
 			public Object onPacketOutAsync( Player player, Channel channel, Object packet ) {
@@ -69,8 +82,7 @@ public class BrickBoard extends JavaPlugin {
 			}
 		};
 		
-		handler = ReflectionUtils.getNewPacketHandlerInstance();
-		command = new BrickExecutor();
+		
 		
 		// TODO refractor this
 		breadBoard = new Board( "test" );
@@ -90,23 +102,32 @@ public class BrickBoard extends JavaPlugin {
 		breadBoard.setContainer( new ChatBoxFiller( ChatColor.AQUA ), new BoxCoord( 0, 8 ) );
 		breadBoard.setContainer( new ChatBoxChannel(), new BoxCoord( 0, 10 ) );
 		breadBoard.setContainer( new ChatBoxFlickerTest(), new BoxCoord( 150, 8 ) );
-		breadBoard.setContainer( new ChatBoxRainbow( ChatColor.AQUA + "----[", " BrickBoard by BananaPuncher714 ", ChatColor.AQUA + "]----" ), new BoxCoord( 0, 0, 0, 0 ) );
+//		breadBoard.setContainer( new ChatBoxRainbow( ChatColor.AQUA + "----[", " BrickBoard by BananaPuncher714 ", ChatColor.AQUA + "]----" ), new BoxCoord( 0, 0, 0, 0 ) );
+		breadBoard.setContainer( new ChatBoxAeNet(), new BoxCoord( 0, 0 ) );
 
 		breadBoard.sort( true );
 		
+		
+		
+		runnable.runTaskTimer( this, 1, 1 );
+		
+		saveResources();
+		registerListeners();
+		registerCommands();
+	}
+	
+	private void saveResources() {
+		saveResource( "README.md", true );
+	}
+	
+	private void registerListeners() {
+		Bukkit.getPluginManager().registerEvents( new PlayerListener( this ), this );
+	}
+	
+	private void registerCommands() {
+		command = new BrickExecutor();
 		getCommand( "brickboard" ).setExecutor( command );
 		
-		Bukkit.getScheduler().scheduleSyncRepeatingTask( this, new Runnable() {
-			@Override
-			public void run() {
-				for ( Player player : Bukkit.getOnlinePlayers() ) {
-					handler.sendMessage( player, breadBoard.getMessage( player ) );
-				}
-			}
-		}, 1, 1 );
-		
-		Bukkit.getPluginManager().registerEvents( new PlayerListener( this ), this );
-
 		registerClickCommands();
 	}
 	
@@ -115,21 +136,7 @@ public class BrickBoard extends JavaPlugin {
 		command.registerClickCommand( new CCommandScroll() );
 	}
 
-	@Override
-	public boolean onCommand( CommandSender sender, Command command, String label, String[] args ) {
-		if ( !command.getName().equalsIgnoreCase( "len" ) ) {
-			return false;
-		}
-		if ( args.length < 1 ) {
-			sender.sendMessage( "Arguments required!" );
-			return false;
-		}
-		
-		System.out.println( args[ 0 ] );
-		
-		sender.sendMessage( "Length: " + MessageUtil.lengthOf( ChatMessage.getMessageFromString( args[ 0 ].replace( '&', ChatColor.COLOR_CHAR ) ), defaultFont ) );
-		return false;
-	}
+	// Getters
 	
 	public TinyProtocol getProtocol() {
 		return tProtocol;
