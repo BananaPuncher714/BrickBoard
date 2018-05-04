@@ -227,6 +227,16 @@ public class MessageUtil {
 		return message.substring( 0, place ) + character + message.substring( place );
 	}
 	
+	/**
+	 * Center a given message to the width provided, and pad the edges with the character given
+	 * 
+	 * @param message
+	 * @param width
+	 * @param space
+	 * @param container
+	 * @return
+	 * The original message if the length exceeds the width
+	 */
 	public static ChatMessage center( ChatMessage message, int width, char space, MinecraftFontContainer container ) {
 		int len = lengthOf( message, container );
 		if ( len < width ) {
@@ -238,8 +248,7 @@ public class MessageUtil {
 	}
 	
 	// TODO do this, eventually?
-//	public static boolean translateTabs( ChatMessage message, BoxCoord coord ) {
-//		final int TAB = 16;
+//	public static boolean translateTabs( ChatMessage message, BoxCoord coord, int tabWidth, MinecraftFontContainer container ) {
 //		if ( message == null ) {
 //			return false;
 //		}
