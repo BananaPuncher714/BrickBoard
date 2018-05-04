@@ -1,5 +1,7 @@
 package io.github.bananapuncher714.brickboard.chat;
 
+import java.io.Serializable;
+
 import org.bukkit.ChatColor;
 
 /**
@@ -7,7 +9,7 @@ import org.bukkit.ChatColor;
  * 
  * @author BananaPuncher714
  */
-public class ChatComponent implements Cloneable {
+public class ChatComponent implements Cloneable, Serializable {
 	protected String text;
 	protected boolean bold = false, underline = false, italic = false, random = false, strikethrough = false;
 	protected ChatColor color = ChatColor.WHITE;

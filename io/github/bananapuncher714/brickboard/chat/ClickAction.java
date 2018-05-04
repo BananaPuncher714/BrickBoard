@@ -1,11 +1,13 @@
 package io.github.bananapuncher714.brickboard.chat;
 
+import java.io.Serializable;
+
 /**
  * Allow messages to do something when clicked on
  * 
  * @author BananaPuncher714
  */
-public class ClickAction implements Cloneable {
+public class ClickAction implements Cloneable, Serializable {
 	protected Action action;
 	protected String message;
 	

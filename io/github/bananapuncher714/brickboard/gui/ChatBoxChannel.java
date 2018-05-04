@@ -43,8 +43,10 @@ public class ChatBoxChannel extends ChatBox {
 		BrickPlayer bPlayer = BrickPlayerManager.getInstance().getPlayer( player.getUniqueId() );
 		List< ChatMessage > channel = bPlayer.getChannel( this.channel != null ? this.channel : bPlayer.getActiveChannelName() );
 
+		int page = bPlayer.getPage();
+		
 		List< ChatMessage > chat = new ArrayList< ChatMessage >();
-		int index = channel.size() - 1;
+		int index = channel.size() - 1 - page;
 		while ( chat.size() < rows ) {
 			if ( index < 0 ) {
 				break;

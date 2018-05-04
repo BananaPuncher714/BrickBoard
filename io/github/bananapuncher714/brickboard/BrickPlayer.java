@@ -1,5 +1,6 @@
 package io.github.bananapuncher714.brickboard;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.UUID;
 import io.github.bananapuncher714.brickboard.chat.ChatMessage;
 import io.github.bananapuncher714.brickboard.objects.MinecraftFontContainer;
 
-public class BrickPlayer {
+public class BrickPlayer implements Serializable {
 	// TODO Make this more modular
 	public static final int MAX_LOG_SIZE = 100;
 	

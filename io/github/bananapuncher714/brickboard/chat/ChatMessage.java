@@ -1,5 +1,6 @@
 package io.github.bananapuncher714.brickboard.chat;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -11,7 +12,7 @@ import org.bukkit.ChatColor;
  * 
  * @author BananaPuncher714
  */
-public class ChatMessage implements Cloneable {
+public class ChatMessage implements Cloneable, Serializable {
 	private final List< ChatComponent > components = new ArrayList< ChatComponent >();
 
 	public List< ChatComponent > getComponents() {

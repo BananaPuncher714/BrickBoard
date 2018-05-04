@@ -2,8 +2,6 @@ package io.github.bananapuncher714.brickboard;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -20,7 +18,6 @@ import io.github.bananapuncher714.brickboard.gui.ChatBoxAeNet;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxChannel;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxFiller;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxFlickerTest;
-import io.github.bananapuncher714.brickboard.gui.ChatBoxRainbow;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxSlate;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxTabCompletes;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxTicker;
@@ -28,7 +25,6 @@ import io.github.bananapuncher714.brickboard.implementation.API.PacketHandler;
 import io.github.bananapuncher714.brickboard.listeners.PlayerListener;
 import io.github.bananapuncher714.brickboard.objects.BoxCoord;
 import io.github.bananapuncher714.brickboard.objects.MinecraftFontContainer;
-import io.github.bananapuncher714.brickboard.util.MessageUtil;
 import io.github.bananapuncher714.brickboard.util.ReflectionUtils;
 import io.github.bananapuncher714.tinyprotocol.TinyProtocol;
 import io.netty.channel.Channel;
@@ -52,10 +48,9 @@ public class BrickBoard extends JavaPlugin {
 	 */
 	private static BrickBoard instance;
 	
-	
+	// TODO re-implement FontManager for serialization purposes
 	MinecraftFontContainer defaultFont = new MinecraftFontContainer( getResource( "data/ascii.png" ), getResource( "data/default_font.bin" ) );
 	BrickExecutor command;
-	
 	
 	private TinyProtocol tProtocol;
 	private PacketHandler handler;
@@ -82,8 +77,6 @@ public class BrickBoard extends JavaPlugin {
 			}
 		};
 		
-		
-		
 		// TODO refractor this
 		breadBoard = new Board( "test" );
 		ChatMessage control = new ChatMessage();
@@ -94,12 +87,16 @@ public class BrickBoard extends JavaPlugin {
 		control.addComponent( new ChatComponent( "[Offtopic]" ).setColor( ChatColor.GOLD ).setBold( true ).setClickAction( new ClickAction( ClickAction.Action.RUN_COMMAND, "/brickboard execute changechannel offtopic" ) ).setHoverAction( new HoverAction( HoverAction.Action.SHOW_TEXT, "View the offtopic chat" ) ) );
 		control.addComponent( new ChatComponent( " " ) );
 		control.addComponent( new ChatComponent( "[Announcements]" ).setColor( ChatColor.LIGHT_PURPLE ).setBold( true ).setClickAction( new ClickAction( ClickAction.Action.RUN_COMMAND, "/brickboard execute changechannel announcements" ) ).setHoverAction( new HoverAction( HoverAction.Action.SHOW_TEXT, "View the announcements" ) ) );
+		control.addComponent( new ChatComponent( " " ) );
+		control.addComponent( new ChatComponent( "[\u25B2]" ).setColor( ChatColor.GREEN ).setClickAction( new ClickAction( ClickAction.Action.RUN_COMMAND, "/brickboard execute scroll up" ) ).setHoverAction( new HoverAction( HoverAction.Action.SHOW_TEXT, "Scroll up" ) ) );
+		control.addComponent( new ChatComponent( "[\u25BC]" ).setColor( ChatColor.GREEN ).setClickAction( new ClickAction( ClickAction.Action.RUN_COMMAND, "/brickboard execute scroll down" ) ).setHoverAction( new HoverAction( HoverAction.Action.SHOW_TEXT, "Scroll down" ) ) );
 		breadBoard.setContainer( new ChatBoxSlate( control ), new BoxCoord( 0, 2 ) );
 		breadBoard.setContainer( new ChatBoxTicker( getResource( "data/ticker.txt" ) ), new BoxCoord( 0, 1, 0, 0 ) );
 		breadBoard.setContainer( new ChatBoxFiller( ChatColor.AQUA ), new BoxCoord( 0, 3 ) );
 		breadBoard.setContainer( new ChatBoxTabCompletes(), new BoxCoord( 0, 4 ) );
 		breadBoard.setContainer( new ChatBoxFiller( ChatColor.AQUA ), new BoxCoord( 0, 7 ) );
-		breadBoard.setContainer( new ChatBoxFiller( ChatColor.AQUA ), new BoxCoord( 0, 8 ) );
+		breadBoard.setContainer( new ChatBoxFiller( ChatColor.AQUA ), new BoxCoord( 0, 9 ) );
+		breadBoard.setContainer( new ChatBoxSlate( ChatMessage.getMessageFromString( ChatColor.DARK_GREEN + "Server TPS: " + ChatColor.GREEN + "%server_tps_1%  / 20" ) ), new BoxCoord( 0, 8 ) );
 		breadBoard.setContainer( new ChatBoxChannel(), new BoxCoord( 0, 10 ) );
 		breadBoard.setContainer( new ChatBoxFlickerTest(), new BoxCoord( 150, 8 ) );
 //		breadBoard.setContainer( new ChatBoxRainbow( ChatColor.AQUA + "----[", " BrickBoard by BananaPuncher714 ", ChatColor.AQUA + "]----" ), new BoxCoord( 0, 0, 0, 0 ) );

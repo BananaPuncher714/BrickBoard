@@ -15,6 +15,10 @@ public class MinecraftFontContainer {
 	/** the height in pixels of default text */
 	public static final int FONT_HEIGHT = 9;
 
+	public String getId() {
+		return "MinecraftFont";
+	}
+	
 	public MinecraftFontContainer( InputStream defaultFont, InputStream glyph_sizes ) {
 		try {
 			glyph_sizes.read( glyphWidth );
