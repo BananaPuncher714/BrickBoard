@@ -23,4 +23,8 @@ public class ChatBoxCoord extends ChatBox {
 		return messages;
 	}
 
+	@Override
+	public ChatBox clone() {
+		return new ChatBoxCoord();
+	}
 }

@@ -5,7 +5,7 @@ package io.github.bananapuncher714.brickboard.objects;
  * 
  * @author BananaPuncher714
  */
-public class BoxCoord implements Comparable< BoxCoord > {
+public class BoxCoord implements Comparable< BoxCoord >, Cloneable {
 	protected int x, y, height, width;
 	
 	public BoxCoord( int x, int y, int height, int width ) {
@@ -93,5 +93,10 @@ public class BoxCoord implements Comparable< BoxCoord > {
 		} else {
 			return -1;
 		}
+	}
+	
+	@Override
+	public BoxCoord clone() {
+		return new BoxCoord( x, y, width, height );
 	}
 }

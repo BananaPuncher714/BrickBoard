@@ -28,4 +28,8 @@ public class ChatBoxSlate extends ChatBox {
 		return messages;
 	}
 
+	@Override
+	public ChatBox clone() {
+		return new ChatBoxSlate( message.clone() );
+	}
 }

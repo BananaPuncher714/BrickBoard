@@ -35,4 +35,8 @@ public class ChatBoxTabCompletes extends ChatBox {
 		return messages;
 	}
 
+	@Override
+	public ChatBox clone() {
+		return new ChatBoxTabCompletes();
+	}
 }

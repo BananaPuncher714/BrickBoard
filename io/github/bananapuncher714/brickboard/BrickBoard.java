@@ -12,6 +12,7 @@ import io.github.bananapuncher714.brickboard.chat.ChatMessage;
 import io.github.bananapuncher714.brickboard.chat.ClickAction;
 import io.github.bananapuncher714.brickboard.chat.HoverAction;
 import io.github.bananapuncher714.brickboard.commands.BrickExecutor;
+import io.github.bananapuncher714.brickboard.commands.actions.CCommandChangeBoard;
 import io.github.bananapuncher714.brickboard.commands.actions.CCommandChangeChannel;
 import io.github.bananapuncher714.brickboard.commands.actions.CCommandScroll;
 import io.github.bananapuncher714.brickboard.demo.BrickBoardDemo;
@@ -66,7 +67,7 @@ public class BrickBoard extends JavaPlugin {
 				String boardId = bPlayer.getActiveBoard();
 				Board board = boardManager.getDefaultBoard();
 				if ( boardId != null ) {
-					boardManager.getBoard( boardId );
+					board = boardManager.getBoard( boardId );
 				}
 				
 				handler.sendMessage( player, board.getMessage( player ) );
@@ -116,6 +117,7 @@ public class BrickBoard extends JavaPlugin {
 	private void registerClickCommands() {
 		command.registerClickCommand( new CCommandChangeChannel() );
 		command.registerClickCommand( new CCommandScroll() );
+		command.registerClickCommand( new CCommandChangeBoard( boardManager ) );
 	}
 
 	// Getters

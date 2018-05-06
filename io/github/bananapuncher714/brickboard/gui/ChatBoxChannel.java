@@ -72,4 +72,8 @@ public class ChatBoxChannel extends ChatBox {
 		return messages;
 	}
 
+	@Override
+	public ChatBox clone() {
+		return new ChatBoxChannel( manager, channel );
+	}
 }

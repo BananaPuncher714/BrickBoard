@@ -44,4 +44,8 @@ public class ChatBoxFlickerTest extends ChatBox {
 		return flickers;
 	}
 
+	@Override
+	public ChatBox clone() {
+		return new ChatBoxFlickerTest();
+	}
 }

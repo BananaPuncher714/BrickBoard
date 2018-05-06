@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import io.github.bananapuncher714.brickboard.chat.ChatMessage;
 import io.github.bananapuncher714.brickboard.objects.BoxCoord;
 
-public abstract class ChatBox {
+public abstract class ChatBox implements Cloneable {
 	/**
 	 * Return a list of ChatMessages, use '\n' for newlines
 	 * @param player
@@ -17,4 +17,7 @@ public abstract class ChatBox {
 	 * @return
 	 */
 	public abstract List< ChatMessage > getMessages( Player player, BoxCoord coord );
+	
+	@Override
+	public abstract ChatBox clone();
 }

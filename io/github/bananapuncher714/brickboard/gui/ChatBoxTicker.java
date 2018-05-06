@@ -19,6 +19,10 @@ public class ChatBoxTicker extends ChatBox {
 	protected String tickerTape;
 	protected int tickerIndex = 0;
 	
+	public ChatBoxTicker( String tickerTape ) {
+		this.tickerTape = tickerTape;
+	}
+	
 	public ChatBoxTicker( InputStream messages ) {
 		BufferedReader reader = new BufferedReader( new InputStreamReader( messages ) );
 		String line;
@@ -51,5 +55,9 @@ public class ChatBoxTicker extends ChatBox {
 		
 		return messages;
 	}
-
+	
+	@Override
+	public ChatBox clone() {
+		return new ChatBoxTicker( tickerTape );
+	}
 }

@@ -94,4 +94,8 @@ public class ChatBoxAeNet extends ChatBox {
 		return msgs;
 	}
 
+	@Override
+	public ChatBox clone() {
+		return new ChatBoxAeNet( manager );
+	}
 }

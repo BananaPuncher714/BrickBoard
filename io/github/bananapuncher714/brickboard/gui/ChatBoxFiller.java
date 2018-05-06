@@ -25,4 +25,8 @@ public class ChatBoxFiller extends ChatBox {
 		return messages;
 	}
 
+	@Override
+	public ChatBox clone() {
+		return new ChatBoxFiller( color );
+	}
 }

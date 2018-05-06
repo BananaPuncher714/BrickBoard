@@ -47,4 +47,8 @@ public class ChatBoxRainbow extends ChatBox {
 		
 	}
 
+	@Override
+	public ChatBox clone() {
+		return new ChatBoxRainbow( prefix.getMessage(), message, suffix.getMessage() );
+	}
 }

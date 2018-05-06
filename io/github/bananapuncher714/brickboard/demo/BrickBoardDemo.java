@@ -48,7 +48,7 @@ public class BrickBoardDemo {
 		
 		breadBoard.sort( true );
 		
-		plugin.getBoardManager().setDefaultBoard( breadBoard );
+		plugin.getBoardManager().addBoard( breadBoard );
 	}
 
 }

@@ -22,17 +22,23 @@ public class Board {
 	protected Map< ChatBox, BoxCoord > containers = new HashMap< ChatBox, BoxCoord >();
 	protected final String id;
 	protected final int width, height;
+	protected boolean forceExtend;
 	FontManager manager;
 	
 	public Board( String id, FontManager manager ) {
-		this( id, manager, BrickBoard.CHAT_LEN, 20 );
+		this( id, manager, false, BrickBoard.CHAT_LEN, 20 );
 	}
 	
-	public Board( String id, FontManager manager, int width, int height ) {
+	public Board( String id, FontManager manager, boolean forceExtend ) {
+		this( id, manager, forceExtend, BrickBoard.CHAT_LEN, 20 );
+	}
+	
+	public Board( String id, FontManager manager, boolean forceExtend, int width, int height ) {
 		this.id = id;
 		this.width = width;
 		this.height = height;
 		this.manager = manager;
+		this.forceExtend = forceExtend;
 	}
 	
 	public String getId() {
@@ -44,7 +50,11 @@ public class Board {
 		BrickPlayer bPlayer = BrickPlayerManager.getInstance().getPlayer( player.getUniqueId() );
 		
 		for ( ChatBox container : containers.keySet() ) {
-			output.put( containers.get( container ), MessageUtil.truncateAndExtend( player, container, containers.get( container ), width, manager.getContainer( bPlayer.getFont() ) ) );
+			if ( forceExtend ) {
+				output.put( containers.get( container ), MessageUtil.truncateAndExtend( player, container, containers.get( container ), 0, manager.getContainer( bPlayer.getFont() ) ) );
+			} else {
+				output.put( containers.get( container ), MessageUtil.truncateAndExtend( player, container, containers.get( container ), width, manager.getContainer( bPlayer.getFont() ) ) );
+			}
 		}
 		ChatMessage message = new ChatMessage();
 		for ( int i = 0; i < height; i++ ) {
@@ -81,6 +91,18 @@ public class Board {
 			}
 		}
 		GuiUtil.organize( containers, width, height );
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
+	
+	public FontManager getManager() {
+		return manager;
 	}
 
 	private boolean doesLineContain( int line, BoxCoord coord ) {

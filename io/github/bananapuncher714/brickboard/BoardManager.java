@@ -7,6 +7,7 @@ import java.util.Map;
 import org.bukkit.ChatColor;
 
 import io.github.bananapuncher714.brickboard.board.Board;
+import io.github.bananapuncher714.brickboard.gui.ChatBoxBoardSelector;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxChannel;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxRainbow;
 import io.github.bananapuncher714.brickboard.objects.BoxCoord;
@@ -20,7 +21,8 @@ public class BoardManager {
 		main = plugin;
 		defaultBoard = new Board( "default_board", main.getFontManager() );
 		defaultBoard.setContainer( new ChatBoxRainbow( ChatColor.AQUA + "----[", " BrickBoard by BananaPuncher714 ", ChatColor.AQUA + "]----" ), new BoxCoord( 0, 0, 0, 0 ) );
-		defaultBoard.setContainer( new ChatBoxChannel( main.getFontManager() ), new BoxCoord( 0, 1 ) );
+		defaultBoard.setContainer( new ChatBoxBoardSelector( this ), new BoxCoord( 0, 1 ) );
+		defaultBoard.setContainer( new ChatBoxChannel( main.getFontManager() ), new BoxCoord( 0, 2 ) );
 		defaultBoard.sort( true );
 	}
 	
@@ -40,7 +42,7 @@ public class BoardManager {
 		return defaultBoard;
 	}
 	
-	protected Collection< Board > getBoards() {
+	public Collection< Board > getBoards() {
 		return boards.values();
 	}
 }
