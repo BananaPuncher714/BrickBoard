@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.bukkit.entity.Player;
 
-import io.github.bananapuncher714.brickboard.BrickBoard;
 import io.github.bananapuncher714.brickboard.BrickPlayer;
 import io.github.bananapuncher714.brickboard.BrickPlayerManager;
+import io.github.bananapuncher714.brickboard.FontManager;
 import io.github.bananapuncher714.brickboard.chat.ChatMessage;
 import io.github.bananapuncher714.brickboard.objects.BoxCoord;
 import io.github.bananapuncher714.brickboard.util.MessageUtil;
@@ -20,19 +20,20 @@ import io.github.bananapuncher714.brickboard.util.Util;
  */
 public class ChatBoxChannel extends ChatBox {
 	String channel;
-	
+	FontManager manager;
 	/**
 	 * Creates a channel window which shows the player's active channel
 	 */
-	public ChatBoxChannel() {
-		channel = null;
+	public ChatBoxChannel( FontManager manager ) {
+		this( manager, null );
 	}
 
 	/**
 	 * Creates a channel window which shows a fixed channel
 	 * @param channel
 	 */
-	public ChatBoxChannel( String channel ) {
+	public ChatBoxChannel( FontManager manager, String channel ) {
+		this.manager = manager;
 		this.channel = channel;
 	}
 
@@ -52,7 +53,7 @@ public class ChatBoxChannel extends ChatBox {
 				break;
 			}
 			ChatMessage message = channel.get( index-- );
-			ChatMessage[] split = MessageUtil.split( coord.getWidth(), message.clone(), BrickBoard.getInstance().getDefaultFont() );
+			ChatMessage[] split = MessageUtil.split( coord.getWidth(), message.clone(), manager.getContainer( bPlayer.getFont() ) );
 			for ( int i = split.length; i > 0; i--  ) {
 				chat.add( split[ i - 1 ] );
 				if ( chat.size() > rows - 1 ) {

@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import io.github.bananapuncher714.brickboard.BrickBoard;
 import io.github.bananapuncher714.brickboard.chat.ChatComponent;
 import io.github.bananapuncher714.brickboard.chat.ChatMessage;
 import io.github.bananapuncher714.brickboard.gui.ChatBox;
@@ -57,7 +58,7 @@ public class MessageUtil {
 		final int PADDING = 2;
 
 		int len = lengthOf( message, container );
-		if ( len == 0 ) {
+		if ( len < 1 ) {
 			return new ChatMessage[ 0 ];
 		}
 		if ( len + 2 <= width && !message.getMessage().contains( "\n" ) ) {
@@ -266,17 +267,20 @@ public class MessageUtil {
 	 * @param fontContainer
 	 * @return
 	 */
-	public static ChatMessage[] truncateAndExtend( Player player, ChatBox container, BoxCoord coord, MinecraftFontContainer fontContainer ) {
+	public static ChatMessage[] truncateAndExtend( Player player, ChatBox container, BoxCoord coord, int overallWidth, MinecraftFontContainer fontContainer ) {
 		ChatMessage[] lines = new ChatMessage[ coord.getHeight() ];
 		int width = coord.getWidth();
 		List< ChatMessage > buffer = container.getMessages( player, coord );
 		List< ChatMessage > splitted = new ArrayList< ChatMessage >();
+		boolean isEOL = coord.getX() + coord.getWidth() >= overallWidth;
 		for ( ChatMessage raw : buffer ) {
 			for ( ChatMessage split : split( width, raw, fontContainer ) ) {
 				if ( split == null ) {
 					continue;
 				}
-				extend( width, split, fontContainer );
+				if ( !isEOL ) {
+					extend( width, split, fontContainer );
+				}
 				splitted.add( split );
 			}
 		}
@@ -284,7 +288,9 @@ public class MessageUtil {
 			if ( splitted.size() <= i ) {
 				ChatMessage whitespace = new ChatMessage();
 				lines[ i ] = whitespace; 
-				extend( width, whitespace, fontContainer );
+				if ( !isEOL ) {
+					extend( width, whitespace, fontContainer );
+				}
 			} else {
 				lines[ i ] = splitted.get( i );
 			}

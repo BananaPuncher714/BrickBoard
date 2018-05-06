@@ -16,7 +16,7 @@ public class BrickPlayerManager {
 		if ( players.containsKey( uuid ) ) {
 			return players.get( uuid );
 		} else {
-			BrickPlayer player = new BrickPlayer( uuid, BrickBoard.getInstance().getDefaultFont() );
+			BrickPlayer player = new BrickPlayer( uuid, BrickBoard.getInstance().getDefaultFont().getId() );
 			players.put( uuid, player );
 			return player;
 		}

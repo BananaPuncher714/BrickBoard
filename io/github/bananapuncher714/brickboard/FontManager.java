@@ -12,20 +12,21 @@ public class FontManager {
 	Map< String, MinecraftFontContainer > fonts = new HashMap< String, MinecraftFontContainer >();
 	MinecraftFontContainer defaultFont;
 	
-	public FontManager( MinecraftFontContainer container ) {
+	public FontManager( Plugin plugin, MinecraftFontContainer container ) {
 		defaultFont = container;
+		this.plugin = plugin;
 	}
 
 	public MinecraftFontContainer getDefaultContainer() {
 		return defaultFont;
 	}
 	
-	public void addFont( String id, MinecraftFontContainer container ) {
-		fonts.put( id, container );
+	public void addFont( MinecraftFontContainer container ) {
+		fonts.put( container.getId(), container );
 	}
 	
 	public MinecraftFontContainer getContainer( String id ) {
-		return fonts.get( id );
+		return fonts.containsKey( id ) ? fonts.get( id ) : defaultFont;
 	}
 	
 	protected Map< String, MinecraftFontContainer > getContainers() {

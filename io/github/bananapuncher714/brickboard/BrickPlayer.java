@@ -7,23 +7,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import io.github.bananapuncher714.brickboard.board.Board;
 import io.github.bananapuncher714.brickboard.chat.ChatMessage;
 import io.github.bananapuncher714.brickboard.objects.MinecraftFontContainer;
 
 public class BrickPlayer implements Serializable {
 	// TODO Make this more modular
+	public static final String LOG_CHANNEL_NAME = "log";
 	public static final int MAX_LOG_SIZE = 100;
 	
 	private Map< String, List< ChatMessage > > channels = new HashMap< String, List< ChatMessage > >();
 	private String[] lastTabCompletes = null;
-	private String activeChannel = "log";
-	private MinecraftFontContainer container = null;
+	private String activeChannel = LOG_CHANNEL_NAME;
+	private String container = null;
+	private String activeBoard = null;
 	
 	private int page = 0;
 	
 	private UUID uuid;
 	
-	public BrickPlayer( UUID uuid, MinecraftFontContainer container ) {
+	public BrickPlayer( UUID uuid, String container ) {
 		this.uuid = uuid;
 		this.container = container;
 	}
@@ -60,7 +63,7 @@ public class BrickPlayer implements Serializable {
 	}
 	
 	public void addToLog( ChatMessage message ) {
-		List< ChatMessage > log = getChannel( "log" );
+		List< ChatMessage > log = getChannel( LOG_CHANNEL_NAME );
 		log.add( message );
 		if ( log.size() > MAX_LOG_SIZE ) {
 			log.remove( 0 );
@@ -75,15 +78,23 @@ public class BrickPlayer implements Serializable {
 		return lastTabCompletes;
 	}
 	
-	public MinecraftFontContainer getFont() {
+	public String getFont() {
 		return container;
+	}
+	
+	public String getActiveBoard() {
+		return activeBoard;
+	}
+	
+	public void setActiveBoard( Board board ) {
+		activeBoard = board.getId();
 	}
 	
 	public boolean setFont( MinecraftFontContainer container ) {
 		if ( container == null ) {
 			return false;
 		}
-		this.container = container;
+		this.container = container.getId();
 		return true;
 	}
 }

@@ -20,7 +20,9 @@ public class ChatMessage implements Cloneable, Serializable {
 	}
 
 	public ChatMessage addComponent( ChatComponent component ) {
-		components.add( component );
+		if ( component != null ) {
+			components.add( component );
+		}
 		return this;
 	}
 

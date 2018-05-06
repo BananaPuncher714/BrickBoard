@@ -12,11 +12,24 @@ import io.github.bananapuncher714.brickboard.objects.BoxCoord;
 public class GuiUtil {
 
 	/**
-	 * Extend a set of BoxCoords so that they take up the most space possible; Stretch right first, then down, left, and up
+	 * Organize a set of BoxCoords so that they fit within the Minecraft chat window
 	 * 
 	 * @param containers
 	 */
 	public static void organize( Map< ChatBox, BoxCoord > containers ) {
+		organize( containers, BrickBoard.CHAT_LEN, 20 );
+	}
+	
+	/**
+	 * Extend a set of BoxCoords so that they take up the most space possible; Stretch right first, then down, left, and up
+	 * 
+	 * @param containers
+	 * @param width
+	 * Width of the rows in pixels
+	 * @param height
+	 * Amount of rows
+	 */
+	public static void organize( Map< ChatBox, BoxCoord > containers, int width, int height ) {
 		// Here starts the 4 loops to stretch in the 4 directions
 		for ( int stretch = 1; stretch < 5; stretch ++ ) {
 			Set< ChatBox > remList = new HashSet< ChatBox >( containers.keySet() );
@@ -55,20 +68,20 @@ public class GuiUtil {
 						coord.setHeight( coord.getHeight() + h );
 						
 						boolean outOfBounds = false;
-						if ( coord.getX() < 0 || coord.getX() > BrickBoard.CHAT_LEN ) {
-							coord.setX( Math.min( BrickBoard.CHAT_LEN - 1, Math.max( 0, coord.getX() ) ) );
+						if ( coord.getX() < 0 || coord.getX() > width ) {
+							coord.setX( Math.min( width - 1, Math.max( 0, coord.getX() ) ) );
 							outOfBounds = true;
 						}
-						if ( coord.getY() < 0 || coord.getY() > 19 ) {
-							coord.setY( Math.min( 19, Math.max( 0, coord.getY() ) ) );
+						if ( coord.getY() < 0 || coord.getY() > height - 1 ) {
+							coord.setY( Math.min( height, Math.max( 0, coord.getY() ) ) );
 							outOfBounds = true;
 						}
-						if ( coord.getWidth() < 0 || coord.getWidth() > BrickBoard.CHAT_LEN - coord.getX() ) {
-							coord.setWidth( Math.min( BrickBoard.CHAT_LEN - coord.getX(), Math.max( 0, coord.getWidth() ) ) );
+						if ( coord.getWidth() < 0 || coord.getWidth() > width - coord.getX() ) {
+							coord.setWidth( Math.min( width - coord.getX(), Math.max( 0, coord.getWidth() ) ) );
 							outOfBounds = true;
 						}
-						if ( coord.getHeight() < 0 || coord.getHeight() > 20 - coord.getY() ) {
-							coord.setHeight( Math.min( 20 - coord.getY(), Math.max( 0, coord.getHeight() ) ) );
+						if ( coord.getHeight() < 0 || coord.getHeight() > height - coord.getY() ) {
+							coord.setHeight( Math.min( height - coord.getY(), Math.max( 0, coord.getHeight() ) ) );
 							outOfBounds = true;
 						}
 						if ( outOfBounds ) {

@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import io.github.bananapuncher714.brickboard.BrickPlayer;
 import io.github.bananapuncher714.brickboard.BrickPlayerManager;
+import io.github.bananapuncher714.brickboard.FontManager;
 import io.github.bananapuncher714.brickboard.chat.ChatMessage;
 import io.github.bananapuncher714.brickboard.objects.BoxCoord;
 import io.github.bananapuncher714.brickboard.objects.MinecraftFontContainer;
@@ -15,6 +16,11 @@ import io.github.bananapuncher714.brickboard.util.MessageUtil;
 
 public class ChatBoxAeNet extends ChatBox {
 	private static final List< ChatMessage > messages;
+	private FontManager manager;
+	
+	public ChatBoxAeNet( FontManager manager ) {
+		this.manager = manager;
+	}
 	
 	static {
 		messages = new ArrayList< ChatMessage >();
@@ -83,7 +89,7 @@ public class ChatBoxAeNet extends ChatBox {
 		index = ( index + .7 ) % messages.size();
 		ChatMessage message = messages.get( ( int ) index );
 		BrickPlayer bPlayer = BrickPlayerManager.getInstance().getPlayer( player.getUniqueId() );
-		MinecraftFontContainer container = bPlayer.getFont();
+		MinecraftFontContainer container = manager.getContainer( bPlayer.getFont() );
 		msgs.add( MessageUtil.center( message, width, ' ', container ) );
 		return msgs;
 	}

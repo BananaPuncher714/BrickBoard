@@ -8,6 +8,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import io.github.bananapuncher714.brickboard.BrickBoard;
+import io.github.bananapuncher714.brickboard.BrickPlayer;
+import io.github.bananapuncher714.brickboard.BrickPlayerManager;
+import io.github.bananapuncher714.brickboard.FontManager;
 import io.github.bananapuncher714.brickboard.chat.ChatComponent;
 import io.github.bananapuncher714.brickboard.chat.ChatMessage;
 import io.github.bananapuncher714.brickboard.gui.ChatBox;
@@ -18,9 +21,18 @@ import io.github.bananapuncher714.brickboard.util.MessageUtil;
 public class Board {
 	protected Map< ChatBox, BoxCoord > containers = new HashMap< ChatBox, BoxCoord >();
 	protected final String id;
-
-	public Board( String id ) {
+	protected final int width, height;
+	FontManager manager;
+	
+	public Board( String id, FontManager manager ) {
+		this( id, manager, BrickBoard.CHAT_LEN, 20 );
+	}
+	
+	public Board( String id, FontManager manager, int width, int height ) {
 		this.id = id;
+		this.width = width;
+		this.height = height;
+		this.manager = manager;
 	}
 	
 	public String getId() {
@@ -29,11 +41,13 @@ public class Board {
 
 	public ChatMessage getMessage( Player player ) {
 		Map< BoxCoord, ChatMessage[] > output = new TreeMap< BoxCoord, ChatMessage[] >();
+		BrickPlayer bPlayer = BrickPlayerManager.getInstance().getPlayer( player.getUniqueId() );
+		
 		for ( ChatBox container : containers.keySet() ) {
-			output.put( containers.get( container ), MessageUtil.truncateAndExtend( player, container, containers.get( container ), BrickBoard.getInstance().getDefaultFont() ) );
+			output.put( containers.get( container ), MessageUtil.truncateAndExtend( player, container, containers.get( container ), width, manager.getContainer( bPlayer.getFont() ) ) );
 		}
 		ChatMessage message = new ChatMessage();
-		for ( int i = 0; i < 20; i++ ) {
+		for ( int i = 0; i < height; i++ ) {
 			for ( BoxCoord coord : output.keySet() ) {
 				if ( !doesLineContain( i, coord ) ) {
 					continue;
@@ -43,7 +57,7 @@ public class Board {
 				message.merge( messages[ level ], ChatMessage.getMessageFromString( ChatColor.RESET + "" ) );
 			}
 			
-			if ( i < 19 ) {
+			if ( i < height - 1 ) {
 				message.addComponent( new ChatComponent( "\n" ).clearFormatting().setColor( ChatColor.WHITE ) );
 			}
 		}
@@ -66,7 +80,7 @@ public class Board {
 				coord.setWidth( 1 );
 			}
 		}
-		GuiUtil.organize( containers );
+		GuiUtil.organize( containers, width, height );
 	}
 
 	private boolean doesLineContain( int line, BoxCoord coord ) {
