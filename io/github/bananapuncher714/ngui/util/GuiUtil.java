@@ -1,23 +1,21 @@
-package io.github.bananapuncher714.brickboard.util;
+package io.github.bananapuncher714.ngui.util;
 
-import java.util.HashSet;
+import java.util.Collection;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
-import io.github.bananapuncher714.brickboard.BrickBoard;
-import io.github.bananapuncher714.brickboard.gui.ChatBox;
-import io.github.bananapuncher714.brickboard.objects.BoxCoord;
+import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
 public class GuiUtil {
 
 	/**
-	 * Organize a set of BoxCoords so that they fit within the Minecraft chat window
+	 * Organize a set of BoxCoords to fit in a given width/height
 	 * 
 	 * @param containers
 	 */
-	public static void organize( Map< ChatBox, BoxCoord > containers ) {
-		organize( containers, BrickBoard.CHAT_LEN, 20 );
+	public static void organize( Collection< BoxCoord > containers ) {
+		organize( containers, 9, 6 );
 	}
 	
 	/**
@@ -29,13 +27,12 @@ public class GuiUtil {
 	 * @param height
 	 * Amount of rows
 	 */
-	public static void organize( Map< ChatBox, BoxCoord > containers, int width, int height ) {
+	public static void organize( Collection< BoxCoord > containers, int width, int height ) {
 		// Here starts the 4 loops to stretch in the 4 directions
 		for ( int stretch = 1; stretch < 5; stretch ++ ) {
-			Set< ChatBox > remList = new HashSet< ChatBox >( containers.keySet() );
+			Set< BoxCoord > remList = new TreeSet< BoxCoord >( containers );
 			while ( !remList.isEmpty() ) {
-				for ( Iterator< ChatBox > it = remList.iterator(); it.hasNext(); ) {
-					ChatBox rc = it.next();
+				for ( Iterator< BoxCoord > it = remList.iterator(); it.hasNext(); ) {
 					int w = 0, h = 0, a = 0, b = 0;
 					switch( stretch ) {
 					case 1: w = 1; break;
@@ -44,14 +41,13 @@ public class GuiUtil {
 					case 4: h = 1; b = -1; break;
 					default: break;
 					}
-					BoxCoord coord = containers.get( rc );
+					BoxCoord coord = it.next();
 					boolean overlap = false;
 					// Check if any of them intersect
-					for ( ChatBox ic : containers.keySet() ) {
-						if ( ic == rc ) {
+					for ( BoxCoord compCoord : containers ) {
+						if ( compCoord.compareTo( coord ) == 0 ) {
 							continue;
 						}
-						BoxCoord compCoord = containers.get( ic );
 						// See if the container is the only object
 						if ( overlap( Math.max( 0, coord.getX() + a ), Math.max( 0, coord.getY() + b ), coord.getWidth() + w, coord.getHeight() + h, compCoord.getX(), compCoord.getY(), compCoord.getWidth(), compCoord.getHeight() ) ) {
 							overlap = true;

@@ -8,7 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import io.github.bananapuncher714.brickboard.chat.ChatMessage;
-import io.github.bananapuncher714.brickboard.objects.BoxCoord;
+import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
 public class ChatBoxFiller extends ChatBox {
 	protected ChatColor color;

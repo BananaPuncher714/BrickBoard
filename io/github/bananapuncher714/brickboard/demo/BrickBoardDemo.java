@@ -16,7 +16,7 @@ import io.github.bananapuncher714.brickboard.gui.ChatBoxFlickerTest;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxSlate;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxTabCompletes;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxTicker;
-import io.github.bananapuncher714.brickboard.objects.BoxCoord;
+import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
 public class BrickBoardDemo {
 	public static void addDefaultBoard( BrickBoard plugin ) {

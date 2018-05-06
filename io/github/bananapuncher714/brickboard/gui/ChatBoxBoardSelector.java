@@ -11,7 +11,7 @@ import io.github.bananapuncher714.brickboard.chat.ChatComponent;
 import io.github.bananapuncher714.brickboard.chat.ChatMessage;
 import io.github.bananapuncher714.brickboard.chat.ClickAction;
 import io.github.bananapuncher714.brickboard.chat.HoverAction;
-import io.github.bananapuncher714.brickboard.objects.BoxCoord;
+import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
 public class ChatBoxBoardSelector extends ChatBox {
 	BoardManager manager;

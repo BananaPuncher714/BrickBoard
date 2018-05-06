@@ -10,7 +10,7 @@ import io.github.bananapuncher714.brickboard.board.Board;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxBoardSelector;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxChannel;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxRainbow;
-import io.github.bananapuncher714.brickboard.objects.BoxCoord;
+import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
 public class BoardManager {
 	private Map< String, Board > boards = new HashMap< String, Board >();

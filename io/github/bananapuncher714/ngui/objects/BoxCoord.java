@@ -1,4 +1,4 @@
-package io.github.bananapuncher714.brickboard.objects;
+package io.github.bananapuncher714.ngui.objects;
 
 /**
  * Comparable, with top left corner being the least and bottom right being the greatest

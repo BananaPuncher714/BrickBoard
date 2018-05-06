@@ -11,8 +11,8 @@ import io.github.bananapuncher714.brickboard.BrickBoard;
 import io.github.bananapuncher714.brickboard.chat.ChatComponent;
 import io.github.bananapuncher714.brickboard.chat.ChatMessage;
 import io.github.bananapuncher714.brickboard.gui.ChatBox;
-import io.github.bananapuncher714.brickboard.objects.BoxCoord;
 import io.github.bananapuncher714.brickboard.objects.MinecraftFontContainer;
+import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
 /**
  * Utility class for handling ChatMessages and manipulating them

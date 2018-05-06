@@ -9,9 +9,9 @@ import io.github.bananapuncher714.brickboard.BrickPlayer;
 import io.github.bananapuncher714.brickboard.BrickPlayerManager;
 import io.github.bananapuncher714.brickboard.FontManager;
 import io.github.bananapuncher714.brickboard.chat.ChatMessage;
-import io.github.bananapuncher714.brickboard.objects.BoxCoord;
 import io.github.bananapuncher714.brickboard.util.MessageUtil;
 import io.github.bananapuncher714.brickboard.util.Util;
+import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
 /**
  * Designed to mimic default Minecraft chat, with the newest messages being pushed up from the bottom

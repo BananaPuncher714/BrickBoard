@@ -14,9 +14,9 @@ import io.github.bananapuncher714.brickboard.FontManager;
 import io.github.bananapuncher714.brickboard.chat.ChatComponent;
 import io.github.bananapuncher714.brickboard.chat.ChatMessage;
 import io.github.bananapuncher714.brickboard.gui.ChatBox;
-import io.github.bananapuncher714.brickboard.objects.BoxCoord;
-import io.github.bananapuncher714.brickboard.util.GuiUtil;
 import io.github.bananapuncher714.brickboard.util.MessageUtil;
+import io.github.bananapuncher714.ngui.objects.BoxCoord;
+import io.github.bananapuncher714.ngui.util.GuiUtil;
 
 public class Board {
 	protected Map< ChatBox, BoxCoord > containers = new HashMap< ChatBox, BoxCoord >();
@@ -90,7 +90,7 @@ public class Board {
 				coord.setWidth( 1 );
 			}
 		}
-		GuiUtil.organize( containers, width, height );
+		GuiUtil.organize( containers.values(), width, height );
 	}
 	
 	public int getWidth() {

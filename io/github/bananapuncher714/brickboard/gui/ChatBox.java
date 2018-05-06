@@ -5,7 +5,7 @@ import java.util.List;
 import org.bukkit.entity.Player;
 
 import io.github.bananapuncher714.brickboard.chat.ChatMessage;
-import io.github.bananapuncher714.brickboard.objects.BoxCoord;
+import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
 public abstract class ChatBox implements Cloneable {
 	/**

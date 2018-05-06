@@ -1,31 +1,18 @@
 package io.github.bananapuncher714.brickboard;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import io.github.bananapuncher714.brickboard.board.Board;
-import io.github.bananapuncher714.brickboard.chat.ChatComponent;
-import io.github.bananapuncher714.brickboard.chat.ChatMessage;
-import io.github.bananapuncher714.brickboard.chat.ClickAction;
-import io.github.bananapuncher714.brickboard.chat.HoverAction;
 import io.github.bananapuncher714.brickboard.commands.BrickExecutor;
 import io.github.bananapuncher714.brickboard.commands.actions.CCommandChangeBoard;
 import io.github.bananapuncher714.brickboard.commands.actions.CCommandChangeChannel;
 import io.github.bananapuncher714.brickboard.commands.actions.CCommandScroll;
 import io.github.bananapuncher714.brickboard.demo.BrickBoardDemo;
-import io.github.bananapuncher714.brickboard.gui.ChatBoxAeNet;
-import io.github.bananapuncher714.brickboard.gui.ChatBoxChannel;
-import io.github.bananapuncher714.brickboard.gui.ChatBoxFiller;
-import io.github.bananapuncher714.brickboard.gui.ChatBoxFlickerTest;
-import io.github.bananapuncher714.brickboard.gui.ChatBoxSlate;
-import io.github.bananapuncher714.brickboard.gui.ChatBoxTabCompletes;
-import io.github.bananapuncher714.brickboard.gui.ChatBoxTicker;
 import io.github.bananapuncher714.brickboard.implementation.API.PacketHandler;
 import io.github.bananapuncher714.brickboard.listeners.PlayerListener;
-import io.github.bananapuncher714.brickboard.objects.BoxCoord;
 import io.github.bananapuncher714.brickboard.objects.MinecraftFontContainer;
 import io.github.bananapuncher714.brickboard.util.ReflectionUtils;
 import io.github.bananapuncher714.tinyprotocol.TinyProtocol;
