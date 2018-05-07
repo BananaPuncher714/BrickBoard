@@ -13,26 +13,40 @@ public class BrickExecutor implements CommandExecutor {
 
 	@Override
 	public boolean onCommand( CommandSender arg0, Command arg1, String arg2, String[] arg3 ) {
-		if ( arg0 instanceof Player ) {
-			Player player = ( Player ) arg0;
-			if ( arg3.length > 1 ) {
-				if ( arg3[ 0 ].equalsIgnoreCase( "execute" ) ) {
-					ClickCommand command = commands.get( arg3[ 1 ].toLowerCase() );
-					
-					if ( command == null ) {
-						return false;
-					}
-					
-					String[] args = new String[ arg3.length - 2 ];
-					for ( int i = 0; i < args.length; i++ ) {
-						args[ i ] = arg3[ i + 2 ];
-					}
-					
-					command.onClick( player, args );
-				}
+		if ( arg3.length == 1 ) {
+			if ( arg3[ 0 ].equalsIgnoreCase( "execute" ) || arg3[ 0 ].equalsIgnoreCase( "exec" ) ) {
+				executeCommand( arg0, arg3 );
+			} else if ( arg3[ 0 ].equalsIgnoreCase( "new" ) ) {
+				newBoard( arg0, arg3 );
 			}
 		}
 		return false;
+	}
+	
+	private void executeCommand( CommandSender sender, String... args ) {
+		if ( sender instanceof Player ) {
+			Player player = ( Player ) sender;
+			if ( args.length > 1 ) {
+				if ( args[ 0 ].equalsIgnoreCase( "execute" ) ) {
+					ClickCommand command = commands.get( args[ 1 ].toLowerCase() );
+					
+					if ( command == null ) {
+						return;
+					}
+					
+					String[] params = new String[ args.length - 2 ];
+					for ( int i = 0; i < args.length; i++ ) {
+						params[ i ] = args[ i + 2 ];
+					}
+					
+					command.onClick( player, params );
+				}
+			}
+		}
+	}
+	
+	public void newBoard( CommandSender sender, String... args ) {
+		// TODO finish this
 	}
 	
 	public void registerClickCommand( ClickCommand command ) {

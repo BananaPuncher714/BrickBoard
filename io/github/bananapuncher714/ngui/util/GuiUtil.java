@@ -156,10 +156,20 @@ public class GuiUtil {
 		return sorted;
 	}
 	
-	// TODO sort into method for getting values
-//	InventoryPanel bigComponent = ( InventoryPanel ) clickedComponent;
-//	int componentSlot = ( int ) ( e.getRawSlot() - clickedComponent.getSlot() - Math.floor( ( e.getRawSlot() - clickedComponent.getSlot() ) / 9.0 ) * ( 9 - clickedComponent.getWidth() ) );
-//	ContentPane clickedPane = bigComponent.findPane( componentSlot );
-//	int slot = ( int ) ( componentSlot - clickedPane.getSlot() - Math.floor( ( componentSlot - clickedPane.getSlot() ) / 9.0 ) * ( clickedComponent.getWidth() - clickedPane.getWidth() ) );
-
+	/**
+	 * Given a smaller rectangle in a larger rectangle, get the slot number of the smaller rectangle in relation to the larger rectangle
+	 * 
+	 * @param clickedSlot
+	 * Does not check whether the slot falls inside the smaller rectangle.
+	 * @param outerWidth
+	 * @param topLeftInnerSlot
+	 * @param innerWidth
+	 * @return
+	 */
+	public static int getInnerSlot( int clickedSlot, int outerWidth, int topLeftInnerSlot, int innerWidth ) {
+		int normalizedSlot = clickedSlot - topLeftInnerSlot;
+		int differenceInWidth = outerWidth - innerWidth;
+		
+		return ( int ) ( normalizedSlot - Math.floor( normalizedSlot / outerWidth ) * differenceInWidth );
+	}
 }

@@ -11,3 +11,5 @@ Unlike several other chat menu APIs and libraries, BrickBoard is built with a mo
 ## What are some drawbacks?
 BrickBoard is meant to take up chat completely, so sending messages directly to the player doesn't work. However, BrickBoard *does* intercept every message sent, and custom modules can be used to make use of the captured messages.
 
+## More documentation:
+- [GitBook](https://bananapuncher714.gitbook.io/brickboard/)

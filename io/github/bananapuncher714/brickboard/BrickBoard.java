@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import io.github.bananapuncher714.brickboard.commands.BrickExecutor;
+import io.github.bananapuncher714.brickboard.commands.BrickTabCompleter;
 import io.github.bananapuncher714.brickboard.commands.actions.CCommandChangeBoard;
 import io.github.bananapuncher714.brickboard.commands.actions.CCommandChangeChannel;
 import io.github.bananapuncher714.brickboard.commands.actions.CCommandScroll;
@@ -99,6 +100,7 @@ public class BrickBoard extends JavaPlugin {
 	private void registerCommands() {
 		command = new BrickExecutor();
 		getCommand( "brickboard" ).setExecutor( command );
+		getCommand( "brickboard" ).setTabCompleter( new BrickTabCompleter() );
 		
 		registerClickCommands();
 	}
