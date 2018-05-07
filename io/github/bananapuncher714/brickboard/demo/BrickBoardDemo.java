@@ -2,9 +2,9 @@ package io.github.bananapuncher714.brickboard.demo;
 
 import org.bukkit.ChatColor;
 
+import io.github.bananapuncher714.brickboard.Board;
 import io.github.bananapuncher714.brickboard.BrickBoard;
 import io.github.bananapuncher714.brickboard.FontManager;
-import io.github.bananapuncher714.brickboard.board.Board;
 import io.github.bananapuncher714.brickboard.chat.ChatComponent;
 import io.github.bananapuncher714.brickboard.chat.ChatMessage;
 import io.github.bananapuncher714.brickboard.chat.ClickAction;

@@ -1,10 +1,11 @@
 package io.github.bananapuncher714.brickboard.commands.actions;
 
 import org.bukkit.entity.Player;
+
+import io.github.bananapuncher714.brickboard.Board;
 import io.github.bananapuncher714.brickboard.BoardManager;
 import io.github.bananapuncher714.brickboard.BrickPlayer;
 import io.github.bananapuncher714.brickboard.BrickPlayerManager;
-import io.github.bananapuncher714.brickboard.board.Board;
 import io.github.bananapuncher714.brickboard.commands.ClickCommand;
 
 public class CCommandChangeBoard implements ClickCommand {

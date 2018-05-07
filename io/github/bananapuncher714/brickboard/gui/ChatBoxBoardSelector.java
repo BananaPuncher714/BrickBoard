@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.bukkit.entity.Player;
 
+import io.github.bananapuncher714.brickboard.Board;
 import io.github.bananapuncher714.brickboard.BoardManager;
-import io.github.bananapuncher714.brickboard.board.Board;
 import io.github.bananapuncher714.brickboard.chat.ChatComponent;
 import io.github.bananapuncher714.brickboard.chat.ChatMessage;
 import io.github.bananapuncher714.brickboard.chat.ClickAction;

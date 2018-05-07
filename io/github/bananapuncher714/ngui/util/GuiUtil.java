@@ -1,9 +1,13 @@
 package io.github.bananapuncher714.ngui.util;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
+import org.bukkit.inventory.ItemStack;
 
 import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
@@ -92,4 +96,70 @@ public class GuiUtil {
 	private static boolean overlap( int x, int y, int w, int h, int a, int b, int i, int e  ) {
 		return x < a + i && x + w > a && y < b + e && y + h > b;
 	}
+	
+	/**
+	 * Convert a slot to Cartesian coordinates, with the origin being the top left and the highest values the bottom right
+	 * 
+	 * @param slot
+	 * @param width
+	 * @return
+	 */
+	public static int[] slotToCoord( int slot, int width ) {
+		int x = slot % width;
+		int y = ( slot - x ) / width;
+		return new int[] { x, y };
+	}
+	
+	/**
+	 * Convert Cartesian coordinates into a slot number, inverse of {@link #slotToCoord( int, int ) slotToCoord} method 
+	 * 
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @return
+	 */
+	public static int coordToSlot( int x, int y, int width, int height ) {
+		if ( x > width || x < 0 || y > height || y < 0 ) return -1;
+		return y * width + x;
+	}
+	
+	/**
+	 * Combine like ItemStacks into a new list; Excludes null items
+	 * 
+	 * @param items
+	 * @return
+	 */
+	public static ArrayList< ItemStack > combine( List< ItemStack > items ) {
+		ArrayList< ItemStack > sorted = new ArrayList< ItemStack >();
+		for ( ItemStack item : items ) {
+			if ( item == null ) {
+				continue;
+			}
+			boolean putInPlace = false;
+			for ( ItemStack sitem : sorted ) {
+				if ( item.isSimilar( sitem ) ) {
+					if ( item.getAmount() + sitem.getAmount() < sitem.getMaxStackSize() ) {
+						sitem.setAmount( sitem.getAmount() + item.getAmount() );
+						putInPlace = true;
+					} else {
+						item.setAmount( item.getAmount() - ( sitem.getMaxStackSize() - sitem.getAmount() ) );
+						sitem.setAmount( sitem.getMaxStackSize() );
+					}
+					break;
+				}
+			}
+			if ( !putInPlace ) {
+				sorted.add( item );
+			}
+		}
+		return sorted;
+	}
+	
+	// TODO sort into method for getting values
+//	InventoryPanel bigComponent = ( InventoryPanel ) clickedComponent;
+//	int componentSlot = ( int ) ( e.getRawSlot() - clickedComponent.getSlot() - Math.floor( ( e.getRawSlot() - clickedComponent.getSlot() ) / 9.0 ) * ( 9 - clickedComponent.getWidth() ) );
+//	ContentPane clickedPane = bigComponent.findPane( componentSlot );
+//	int slot = ( int ) ( componentSlot - clickedPane.getSlot() - Math.floor( ( componentSlot - clickedPane.getSlot() ) / 9.0 ) * ( clickedComponent.getWidth() - clickedPane.getWidth() ) );
+
 }
