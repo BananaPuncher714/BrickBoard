@@ -5,12 +5,12 @@ import java.util.List;
 
 import org.bukkit.entity.Player;
 
-import io.github.bananapuncher714.brickboard.Board;
 import io.github.bananapuncher714.brickboard.BoardManager;
 import io.github.bananapuncher714.brickboard.chat.ChatComponent;
 import io.github.bananapuncher714.brickboard.chat.ChatMessage;
 import io.github.bananapuncher714.brickboard.chat.ClickAction;
 import io.github.bananapuncher714.brickboard.chat.HoverAction;
+import io.github.bananapuncher714.brickboard.objects.Board;
 import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
 public class ChatBoxBoardSelector extends ChatBox {

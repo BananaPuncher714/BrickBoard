@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import io.github.bananapuncher714.brickboard.chat.ChatMessage;
+import io.github.bananapuncher714.brickboard.objects.Board;
 import io.github.bananapuncher714.brickboard.objects.MinecraftFontContainer;
 
 public class BrickPlayer implements Serializable {

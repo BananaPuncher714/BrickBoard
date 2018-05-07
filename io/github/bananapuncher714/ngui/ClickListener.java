@@ -41,6 +41,11 @@ public class ClickListener implements Listener {
 		Inventory inventory = event.getInventory();
 		InventoryHolder holder = inventory.getHolder();
 		if ( holder instanceof BananaHolder ) {
+			for ( int slot : event.getRawSlots() ) {
+				if ( event.getInventorySlots().contains( slot ) ) {
+					event.setCancelled( true );
+				}
+			}
 			( ( BananaHolder ) holder ).onInventoryDrag( event );
 		}
 	}

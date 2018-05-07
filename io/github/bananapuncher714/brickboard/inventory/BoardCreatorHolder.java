@@ -3,6 +3,7 @@ package io.github.bananapuncher714.brickboard.inventory;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
@@ -36,10 +37,10 @@ public class BoardCreatorHolder extends BananaHolder {
 		for ( int i = 0; i < 6; i++ ) {
 			ItemStack item;
 			if ( i == 0 && page > 0 ) {
-				item = new SkullBuilder( ARROW_UP, "Go up", true ).addFlags( ItemFlag.values() ).getItem();
+				item = new SkullBuilder( "Go up", ARROW_UP, true ).addFlags( ItemFlag.values() ).getItem();
 				item = NBTEditor.setItemTag( item, "page-up", "brickboard", "inventory", "meta-1" );
-			} else if ( i == 5 ) {
-				item = new SkullBuilder( ARROW_DOWN, "Go down", true ).addFlags( ItemFlag.values() ).getItem();
+			} else if ( i == 5 && page < 14 ) {
+				item = new SkullBuilder( "Go down", ARROW_DOWN, true ).addFlags( ItemFlag.values() ).getItem();
 				item = NBTEditor.setItemTag( item, "page-down", "brickboard", "inventory", "meta-1" );
 			} else {
 				item  = new ItemBuilder( Material.STAINED_GLASS_PANE, 1, ( byte ) 15, " ", false ).addFlags( ItemFlag.values() ).getItem();
@@ -54,8 +55,32 @@ public class BoardCreatorHolder extends BananaHolder {
 	}
 
 	@Override
-	public void onInventoryClick(InventoryClickEvent event) {
-
+	public void onInventoryClick( InventoryClickEvent event ) {
+		ClickType click = event.getClick();
+		if ( event.getSlot() != event.getRawSlot() ) {
+			if ( click.isKeyboardClick() || click.isShiftClick() ) {
+				event.setCancelled( true );
+			}
+			return;
+		}
+		
+		event.setCancelled( true );
+		ItemStack item = event.getCurrentItem();
+		ItemStack cursor = event.getCursor();
+		
+		String meta = ( String ) NBTEditor.getItemTag( item, "brickboard", "inventory", "meta-1" );
+		if ( meta == null ) {
+			return;
+		}
+		if ( meta.equalsIgnoreCase( "page-down" ) ) {
+			page++;
+		} else if ( meta.equalsIgnoreCase( "page-up" ) ) {
+			page = Math.max( 0, page - 1 );
+		} else {
+			
+		}
+		
+		getInventory();
 	}
 
 }

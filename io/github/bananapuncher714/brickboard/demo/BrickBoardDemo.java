@@ -2,7 +2,6 @@ package io.github.bananapuncher714.brickboard.demo;
 
 import org.bukkit.ChatColor;
 
-import io.github.bananapuncher714.brickboard.Board;
 import io.github.bananapuncher714.brickboard.BrickBoard;
 import io.github.bananapuncher714.brickboard.FontManager;
 import io.github.bananapuncher714.brickboard.chat.ChatComponent;
@@ -16,6 +15,7 @@ import io.github.bananapuncher714.brickboard.gui.ChatBoxFlickerTest;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxSlate;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxTabCompletes;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxTicker;
+import io.github.bananapuncher714.brickboard.objects.Board;
 import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
 public class BrickBoardDemo {

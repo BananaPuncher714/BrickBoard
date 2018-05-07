@@ -13,9 +13,11 @@ import io.github.bananapuncher714.brickboard.commands.actions.CCommandScroll;
 import io.github.bananapuncher714.brickboard.demo.BrickBoardDemo;
 import io.github.bananapuncher714.brickboard.implementation.API.PacketHandler;
 import io.github.bananapuncher714.brickboard.listeners.PlayerListener;
+import io.github.bananapuncher714.brickboard.objects.Board;
 import io.github.bananapuncher714.brickboard.objects.MinecraftFontContainer;
 import io.github.bananapuncher714.brickboard.util.ReflectionUtils;
 import io.github.bananapuncher714.ngui.ClickListener;
+import io.github.bananapuncher714.ngui.NGui;
 import io.github.bananapuncher714.tinyprotocol.TinyProtocol;
 import io.netty.channel.Channel;
 
@@ -87,6 +89,11 @@ public class BrickBoard extends JavaPlugin {
 		registerCommands();
 	}
 	
+	@Override
+	public void onDisable() {
+		NGui.disable();
+	}
+	
 	private void saveResources() {
 		saveResource( "README.md", true );
 	}
@@ -131,5 +138,19 @@ public class BrickBoard extends JavaPlugin {
 	
 	public static BrickBoard getInstance() {
 		return instance;
+	}
+	
+	public enum Permission {
+		ADMIN( "brickboard.admin" );
+		
+		private String permission;
+		
+		private Permission( String permission ) {
+			this.permission = permission;
+		}
+		
+		public String getPermission() {
+			return permission;
+		}
 	}
 }

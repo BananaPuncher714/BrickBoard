@@ -1,4 +1,4 @@
-package io.github.bananapuncher714.brickboard;
+package io.github.bananapuncher714.brickboard.objects;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,17 +7,18 @@ import java.util.TreeMap;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import io.github.bananapuncher714.brickboard.BrickBoard;
+import io.github.bananapuncher714.brickboard.BrickPlayer;
+import io.github.bananapuncher714.brickboard.BrickPlayerManager;
+import io.github.bananapuncher714.brickboard.FontManager;
 import io.github.bananapuncher714.brickboard.chat.ChatComponent;
 import io.github.bananapuncher714.brickboard.chat.ChatMessage;
 import io.github.bananapuncher714.brickboard.gui.ChatBox;
 import io.github.bananapuncher714.brickboard.util.MessageUtil;
 import io.github.bananapuncher714.ngui.objects.BoxCoord;
-import io.github.bananapuncher714.ngui.util.GuiUtil;
 
-public class Board {
+public class Board extends BoardTemplate {
 	protected Map< ChatBox, BoxCoord > containers = new HashMap< ChatBox, BoxCoord >();
-	protected final String id;
-	protected final int width, height;
 	protected boolean forceExtend;
 	protected FontManager manager;
 	
@@ -30,17 +31,11 @@ public class Board {
 	}
 	
 	public Board( String id, FontManager manager, boolean forceExtend, int width, int height ) {
-		this.id = id;
-		this.width = width;
-		this.height = height;
+		super( id, width, height );
 		this.manager = manager;
 		this.forceExtend = forceExtend;
 	}
 	
-	public String getId() {
-		return id;
-	}
-
 	public ChatMessage getMessage( Player player ) {
 		Map< BoxCoord, ChatMessage[] > output = new TreeMap< BoxCoord, ChatMessage[] >();
 		BrickPlayer bPlayer = BrickPlayerManager.getInstance().getPlayer( player.getUniqueId() );
@@ -70,35 +65,22 @@ public class Board {
 		return message;
 	}
 
-	public void setContainer( ChatBox container, BoxCoord coord ) {
-		for ( BoxCoord value : containers.values() ) {
-			if ( coord.compareTo( value ) == 0 ) {
-				throw new IllegalArgumentException( "BoxCoord must not already exist in Board! At (" + coord.getX() + ", " + coord.getY() + ")" );
-			}
-		}
-		containers.put( container, coord );
-	}
-
-	public void sort( boolean reset ) {
-		if ( reset ) {
-			for ( BoxCoord coord : containers.values() ) {
-				coord.setHeight( 1 );
-				coord.setWidth( 1 );
-			}
-		}
-		GuiUtil.organize( containers.values(), width, height );
-	}
-	
-	public int getWidth() {
-		return width;
-	}
-	
-	public int getHeight() {
-		return height;
-	}
-	
 	public FontManager getManager() {
 		return manager;
+	}
+	
+	public Board setFontManager( FontManager manager ) {
+		this.manager = manager;
+		return this;
+	}
+	
+	public boolean isForceExtend() {
+		return forceExtend;
+	}
+	
+	public Board setForceExtend( boolean forceExtend ) {
+		this.forceExtend = forceExtend;
+		return this;
 	}
 
 	private boolean doesLineContain( int line, BoxCoord coord ) {
