@@ -3,6 +3,7 @@ package io.github.bananapuncher714.brickboard;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.bukkit.ChatColor;
 
@@ -14,8 +15,8 @@ import io.github.bananapuncher714.brickboard.objects.BoardTemplate;
 import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
 public class BoardManager {
-	private Map< String, Board > boards = new HashMap< String, Board >();
-	private Map< String, BoardTemplate > templates = new HashMap< String, BoardTemplate >();
+	private Map< UUID, Board > boards = new HashMap< UUID, Board >();
+	private Map< UUID, BoardTemplate > templates = new HashMap< UUID, BoardTemplate >();
 	
 	private Board defaultBoard;
 	private BrickBoard main;
@@ -29,11 +30,41 @@ public class BoardManager {
 		defaultBoard.sort( true );
 	}
 	
+	public void addTemplate( BoardTemplate template ) {
+		templates.put( template.getUUID(), template );
+	}
+	
+	public BoardTemplate getTemplate( UUID uuid ) {
+		return templates.get( uuid );
+	}
+	
+	public BoardTemplate getTemplate( String id ) {
+		for ( BoardTemplate board : templates.values() ) {
+			if ( board.getId().equalsIgnoreCase( id ) ) {
+				return board;
+			}
+		}
+		return null;
+	}
+	
+	public Collection< BoardTemplate > getTemplates() {
+		return templates.values();
+	}
+	
 	public void addBoard( Board board ) {
-		boards.put( board.getId(), board );
+		boards.put( board.getUUID(), board );
 	}
 	
 	public Board getBoard( String id ) {
+		for ( Board board : boards.values() ) {
+			if ( board.getId().equalsIgnoreCase( id ) ) {
+				return board;
+			}
+		}
+		return null;
+	}
+	
+	public Board getBoard( UUID id ) {
 		return boards.get( id );
 	}
 	

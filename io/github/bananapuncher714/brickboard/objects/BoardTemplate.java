@@ -56,6 +56,10 @@ public class BoardTemplate implements Cloneable {
 		containers.put( container, coord );
 	}
 	
+	public Map< ChatBox, BoxCoord > getContainers() {
+		return containers;
+	}
+	
 	public void sort( boolean reset ) {
 		if ( reset ) {
 			for ( BoxCoord coord : containers.values() ) {

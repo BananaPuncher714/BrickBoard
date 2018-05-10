@@ -49,11 +49,11 @@ public class GuiUtil {
 					boolean overlap = false;
 					// Check if any of them intersect
 					for ( BoxCoord compCoord : containers ) {
-						if ( compCoord.compareTo( coord ) == 0 ) {
+						if ( compCoord.equals( coord ) ) {
 							continue;
 						}
 						// See if the container is the only object
-						if ( overlap( Math.max( 0, coord.getX() + a ), Math.max( 0, coord.getY() + b ), coord.getWidth() + w, coord.getHeight() + h, compCoord.getX(), compCoord.getY(), compCoord.getWidth(), compCoord.getHeight() ) ) {
+						if ( overlap( coord.getX() + a, coord.getY() + b, coord.getWidth() + w, coord.getHeight() + h, compCoord.getX(), compCoord.getY(), compCoord.getWidth(), compCoord.getHeight() ) ) {
 							overlap = true;
 							break;
 						}
@@ -68,12 +68,13 @@ public class GuiUtil {
 						coord.setHeight( coord.getHeight() + h );
 						
 						boolean outOfBounds = false;
-						if ( coord.getX() < 0 || coord.getX() > width ) {
+						// TODO check this math
+						if ( coord.getX() < 0 || coord.getX() > width - 1 ) {
 							coord.setX( Math.min( width - 1, Math.max( 0, coord.getX() ) ) );
 							outOfBounds = true;
 						}
 						if ( coord.getY() < 0 || coord.getY() > height - 1 ) {
-							coord.setY( Math.min( height, Math.max( 0, coord.getY() ) ) );
+							coord.setY( Math.min( height - 1, Math.max( 0, coord.getY() ) ) );
 							outOfBounds = true;
 						}
 						if ( coord.getWidth() < 0 || coord.getWidth() > width - coord.getX() ) {

@@ -1,6 +1,5 @@
 package io.github.bananapuncher714.brickboard.objects;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -18,7 +17,6 @@ import io.github.bananapuncher714.brickboard.util.MessageUtil;
 import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
 public class Board extends BoardTemplate {
-	protected Map< ChatBox, BoxCoord > containers = new HashMap< ChatBox, BoxCoord >();
 	protected boolean forceExtend;
 	protected FontManager manager;
 	
