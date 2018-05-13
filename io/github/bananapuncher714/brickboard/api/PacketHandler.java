@@ -1,4 +1,4 @@
-package io.github.bananapuncher714.brickboard.implementation.API;
+package io.github.bananapuncher714.brickboard.api;
 
 import org.bukkit.entity.Player;
 

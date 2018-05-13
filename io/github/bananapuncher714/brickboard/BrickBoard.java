@@ -5,13 +5,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import io.github.bananapuncher714.brickboard.api.PacketHandler;
 import io.github.bananapuncher714.brickboard.commands.BrickExecutor;
 import io.github.bananapuncher714.brickboard.commands.BrickTabCompleter;
 import io.github.bananapuncher714.brickboard.commands.actions.CCommandChangeBoard;
 import io.github.bananapuncher714.brickboard.commands.actions.CCommandChangeChannel;
 import io.github.bananapuncher714.brickboard.commands.actions.CCommandScroll;
 import io.github.bananapuncher714.brickboard.demo.BrickBoardDemo;
-import io.github.bananapuncher714.brickboard.implementation.API.PacketHandler;
 import io.github.bananapuncher714.brickboard.listeners.PlayerListener;
 import io.github.bananapuncher714.brickboard.objects.Board;
 import io.github.bananapuncher714.brickboard.objects.MinecraftFontContainer;
@@ -41,8 +41,6 @@ public class BrickBoard extends JavaPlugin {
 	private static BrickBoard instance;
 	
 	// TODO re-implement FontManager for serialization purposes
-	FontManager fontManager;
-	BoardManager boardManager;
 	BrickExecutor command;
 	
 	private TinyProtocol tProtocol;
@@ -55,9 +53,9 @@ public class BrickBoard extends JavaPlugin {
 				BrickPlayer bPlayer = manager.getPlayer( player.getUniqueId() );
 				
 				String boardId = bPlayer.getActiveBoard();
-				Board board = boardManager.getDefaultBoard();
+				Board board = BoardManager.getInstance().getDefaultBoard();
 				if ( boardId != null ) {
-					board = boardManager.getBoard( boardId );
+					board = BoardManager.getInstance().getBoard( boardId );
 				}
 				
 				handler.sendMessage( player, board.getMessage( player ) );
@@ -69,8 +67,7 @@ public class BrickBoard extends JavaPlugin {
 	public void onEnable() {
 		instance = this;
 		
-		fontManager = new FontManager( this, new MinecraftFontContainer( getResource( "data/ascii.png" ), getResource( "data/default_font.bin" ) ) );
-		boardManager = new BoardManager( this );
+		FontManager.getInstance().setDefaultContainer( new MinecraftFontContainer( getResource( "data/ascii.png" ), getResource( "data/default_font.bin" ) ) );
 		
 		handler = ReflectionUtils.getNewPacketHandlerInstance();
 		tProtocol = new TinyProtocol( this ) {
@@ -115,7 +112,7 @@ public class BrickBoard extends JavaPlugin {
 	private void registerClickCommands() {
 		command.registerClickCommand( new CCommandChangeChannel() );
 		command.registerClickCommand( new CCommandScroll() );
-		command.registerClickCommand( new CCommandChangeBoard( boardManager ) );
+		command.registerClickCommand( new CCommandChangeBoard() );
 	}
 
 	// Getters
@@ -123,19 +120,7 @@ public class BrickBoard extends JavaPlugin {
 	public TinyProtocol getProtocol() {
 		return tProtocol;
 	}
-	
-	public MinecraftFontContainer getDefaultFont() {
-		return fontManager.getDefaultContainer();
-	}
-	
-	public FontManager getFontManager() {
-		return fontManager;
-	}
-	
-	public BoardManager getBoardManager() {
-		return boardManager;
-	}
-	
+
 	public static BrickBoard getInstance() {
 		return instance;
 	}

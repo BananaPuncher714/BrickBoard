@@ -2,6 +2,7 @@ package io.github.bananapuncher714.brickboard.demo;
 
 import org.bukkit.ChatColor;
 
+import io.github.bananapuncher714.brickboard.BoardManager;
 import io.github.bananapuncher714.brickboard.BrickBoard;
 import io.github.bananapuncher714.brickboard.FontManager;
 import io.github.bananapuncher714.brickboard.chat.ChatComponent;
@@ -20,7 +21,7 @@ import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
 public class BrickBoardDemo {
 	public static void addDefaultBoard( BrickBoard plugin ) {
-		FontManager fManager = plugin.getFontManager();
+		FontManager fManager = FontManager.getInstance();
 		
 		Board breadBoard = new Board( "test", fManager );
 		ChatMessage control = new ChatMessage();
@@ -48,7 +49,7 @@ public class BrickBoardDemo {
 		
 		breadBoard.sort( true );
 		
-		plugin.getBoardManager().addBoard( breadBoard );
+		BoardManager.getInstance().addBoard( breadBoard );
 	}
 
 }

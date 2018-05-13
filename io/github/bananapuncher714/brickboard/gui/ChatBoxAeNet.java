@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import io.github.bananapuncher714.brickboard.BrickPlayer;
 import io.github.bananapuncher714.brickboard.BrickPlayerManager;
@@ -12,10 +14,13 @@ import io.github.bananapuncher714.brickboard.FontManager;
 import io.github.bananapuncher714.brickboard.chat.ChatMessage;
 import io.github.bananapuncher714.brickboard.objects.MinecraftFontContainer;
 import io.github.bananapuncher714.brickboard.util.MessageUtil;
+import io.github.bananapuncher714.ngui.items.ItemBuilder;
 import io.github.bananapuncher714.ngui.objects.BoxCoord;
+import io.github.bananapuncher714.ngui.util.NBTEditor;
 
 public class ChatBoxAeNet extends ChatBox {
 	private static final List< ChatMessage > messages;
+	
 	private FontManager manager;
 	
 	public ChatBoxAeNet( FontManager manager ) {

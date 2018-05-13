@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import io.github.bananapuncher714.brickboard.BrickBoard;
+import io.github.bananapuncher714.brickboard.FontManager;
 import io.github.bananapuncher714.brickboard.chat.ChatComponent;
 import io.github.bananapuncher714.brickboard.chat.ChatMessage;
 import io.github.bananapuncher714.ngui.objects.BoxCoord;
@@ -28,7 +29,7 @@ public class ChatBoxFlickerTest extends ChatBox {
 	@Override
 	public List< ChatMessage > getMessages( Player player, BoxCoord coord ) {
 		List< ChatMessage > flickers = new ArrayList< ChatMessage >();
-		int length = BrickBoard.getInstance().getDefaultFont().getStringWidth( CHARS, false );
+		int length = FontManager.getInstance().getDefaultContainer().getStringWidth( CHARS, false );
 		int amount = coord.getWidth() / length;
 		
 		for ( int i = 0; i < coord.getHeight(); i++ ) {

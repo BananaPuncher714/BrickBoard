@@ -126,7 +126,8 @@ public class BoardCreatorHolder extends BananaHolder {
 				if ( name.equalsIgnoreCase( "filler" ) ) {
 					ChatBoxFiller filler = new ChatBoxFiller( ChatColor.GREEN );
 					int[] coords = GuiUtil.slotToCoord( event.getSlot(), 9 );
-					int x = ( int ) ( coords[ 0 ] * ( template.getWidth() / 8.0 ) );
+					int x = ( int ) Math.ceil( coords[ 0 ] * ( template.getWidth() / 8.0 ) );
+					System.out.println( coords[ 0 ] + " into " + x );
 					int y = coords[ 1 ] + page;
 					template.setContainer( filler, new BoxCoord( x, y ) );
 					template.sort( true );

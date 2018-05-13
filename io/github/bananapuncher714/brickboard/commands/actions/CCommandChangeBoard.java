@@ -9,11 +9,6 @@ import io.github.bananapuncher714.brickboard.commands.ClickCommand;
 import io.github.bananapuncher714.brickboard.objects.Board;
 
 public class CCommandChangeBoard implements ClickCommand {
-	BoardManager manager;
-	
-	public CCommandChangeBoard( BoardManager manager ) {
-		this.manager = manager;
-	}
 	
 	@Override
 	public void onClick( Player player, String... args ) {
@@ -21,7 +16,7 @@ public class CCommandChangeBoard implements ClickCommand {
 			return;
 		}
 		String id = args[ 0 ];
-		Board board = manager.getBoard( id );
+		Board board = BoardManager.getInstance().getBoard( id );
 		if ( board == null ) {
 			return;
 		}

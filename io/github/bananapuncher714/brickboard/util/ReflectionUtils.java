@@ -1,8 +1,8 @@
 package io.github.bananapuncher714.brickboard.util;
 
-import io.github.bananapuncher714.brickboard.implementation.API.PacketHandler;
-
 import org.bukkit.Bukkit;
+
+import io.github.bananapuncher714.brickboard.api.PacketHandler;
 
 public class ReflectionUtils {
 	public static final String VERSION;
