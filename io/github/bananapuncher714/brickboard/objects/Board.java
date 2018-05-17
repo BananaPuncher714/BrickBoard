@@ -66,7 +66,7 @@ public class Board implements Cloneable {
 			}
 			
 			if ( i < height - 1 ) {
-				message.addComponent( new ChatComponent( "|\n" ).clearFormatting().setColor( ChatColor.WHITE ) );
+				message.addComponent( new ChatComponent( "\n" ).clearFormatting().setColor( ChatColor.WHITE ) );
 			}
 		}
 		return message;
@@ -118,6 +118,11 @@ public class Board implements Cloneable {
 		return containers;
 	}
 	
+	/**
+	 * Note that this MUST be called before attempting to use!! If not, it will cause errors
+	 * 
+	 * @param reset
+	 */
 	public void sort( boolean reset ) {
 		if ( reset ) {
 			for ( BoxCoord coord : containers.values() ) {

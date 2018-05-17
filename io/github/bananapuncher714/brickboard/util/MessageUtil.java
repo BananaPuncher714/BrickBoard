@@ -272,6 +272,9 @@ public class MessageUtil {
 	public static ChatMessage[] truncateAndExtend( Player player, ChatBox container, BoxCoord coord, int overallWidth, MinecraftFontContainer fontContainer ) {
 		ChatMessage[] lines = new ChatMessage[ coord.getHeight() ];
 		int width = coord.getWidth();
+		if ( width == 0 ) {
+			throw new IllegalArgumentException( "Invalid dimensions for a BoxCoord! Width must be at least 1!" );
+		}
 		List< ChatMessage > buffer = container.getMessages( player, coord );
 		List< ChatMessage > splitted = new ArrayList< ChatMessage >();
 		boolean isEOL = coord.getX() + coord.getWidth() >= overallWidth;

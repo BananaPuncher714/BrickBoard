@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
@@ -67,7 +68,7 @@ public class ChatBoxChannel extends ChatBox {
 		}
 		int len = rows - chat.size();
 		for ( int i = 0; i < len; i++ ) {
-			chat.add( new ChatMessage().addComponent( new ChatComponent( "" ) ) );
+			chat.add( ChatMessage.getMessageFromString( ChatColor.RESET + " " ) );
 		}
 		
 		Util.reverseList( chat );
