@@ -1,11 +1,11 @@
-package io.github.bananapuncher714.brickboard.events;
+package io.github.bananapuncher714.brickboard.api.events;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
 
-import io.github.bananapuncher714.brickboard.chat.ChatMessage;
+import io.github.bananapuncher714.brickboard.api.chat.ChatMessage;
 
 /**
  * Only receives messages that would not have been sent to the player 

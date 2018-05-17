@@ -1,5 +1,7 @@
 package io.github.bananapuncher714.brickboard;
 
+import java.io.File;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -12,9 +14,20 @@ import io.github.bananapuncher714.brickboard.commands.actions.CCommandChangeBoar
 import io.github.bananapuncher714.brickboard.commands.actions.CCommandChangeChannel;
 import io.github.bananapuncher714.brickboard.commands.actions.CCommandScroll;
 import io.github.bananapuncher714.brickboard.demo.BrickBoardDemo;
+import io.github.bananapuncher714.brickboard.gui.ChatBoxAeNet;
+import io.github.bananapuncher714.brickboard.gui.ChatBoxBoardSelector;
+import io.github.bananapuncher714.brickboard.gui.ChatBoxChannel;
+import io.github.bananapuncher714.brickboard.gui.ChatBoxCoord;
+import io.github.bananapuncher714.brickboard.gui.ChatBoxFiller;
+import io.github.bananapuncher714.brickboard.gui.ChatBoxFlickerTest;
+import io.github.bananapuncher714.brickboard.gui.ChatBoxRainbow;
+import io.github.bananapuncher714.brickboard.gui.ChatBoxSlate;
+import io.github.bananapuncher714.brickboard.gui.ChatBoxTabCompletes;
+import io.github.bananapuncher714.brickboard.gui.ChatBoxTicker;
 import io.github.bananapuncher714.brickboard.listeners.PlayerListener;
 import io.github.bananapuncher714.brickboard.objects.Board;
 import io.github.bananapuncher714.brickboard.objects.MinecraftFontContainer;
+import io.github.bananapuncher714.brickboard.util.FileUtil;
 import io.github.bananapuncher714.brickboard.util.ReflectionUtils;
 import io.github.bananapuncher714.ngui.ClickListener;
 import io.github.bananapuncher714.ngui.NGui;
@@ -40,7 +53,7 @@ public class BrickBoard extends JavaPlugin {
 	 */
 	private static BrickBoard instance;
 	
-	// TODO re-implement FontManager for serialization purposes
+	
 	BrickExecutor command;
 	
 	private TinyProtocol tProtocol;
@@ -52,10 +65,9 @@ public class BrickBoard extends JavaPlugin {
 			for ( Player player : Bukkit.getOnlinePlayers() ) {
 				BrickPlayer bPlayer = manager.getPlayer( player.getUniqueId() );
 				
-				String boardId = bPlayer.getActiveBoard();
-				Board board = BoardManager.getInstance().getDefaultBoard();
-				if ( boardId != null ) {
-					board = BoardManager.getInstance().getBoard( boardId );
+				Board board = bPlayer.getActiveBoard();
+				if ( board == null ) {
+					board = BoardManager.getInstance().getDefaultBoard();
 				}
 				
 				handler.sendMessage( player, board.getMessage( player ) );
@@ -84,6 +96,15 @@ public class BrickBoard extends JavaPlugin {
 		saveResources();
 		registerListeners();
 		registerCommands();
+		registerChatBoxes();
+		
+		Bukkit.getScheduler().runTaskLater( this, new Runnable() {
+			@Override
+			public void run() {
+				ChatBoxManager.getInstance().loadPresets( new File( getDataFolder() + "/" + "presets" ) );
+				BoardManager.getInstance().loadBoards( new File( getDataFolder() + "/" + "boards" ) );
+			}
+		}, 20 );
 	}
 	
 	@Override
@@ -93,6 +114,13 @@ public class BrickBoard extends JavaPlugin {
 	
 	private void saveResources() {
 		saveResource( "README.md", true );
+		
+		// Debug info here
+		File presetDir = new File( getDataFolder() + "/" + "presets" );
+		FileUtil.saveToFile( getResource( "data/presets/chat-filler.yml" ), new File( presetDir + "/" + "chat-filler.yml" ), false );
+		
+		File boardDir = new File( getDataFolder() + "/" + "boards" );
+		FileUtil.saveToFile( getResource( "data/boards/demo-board.yml" ), new File( boardDir + "/" + "demo-board.yml" ), false );
 	}
 	
 	private void registerListeners() {
@@ -113,6 +141,20 @@ public class BrickBoard extends JavaPlugin {
 		command.registerClickCommand( new CCommandChangeChannel() );
 		command.registerClickCommand( new CCommandScroll() );
 		command.registerClickCommand( new CCommandChangeBoard() );
+	}
+	
+	private void registerChatBoxes() {
+		ChatBoxManager manager = ChatBoxManager.getInstance();
+//		manager.registerBox( "ChatBoxAeNet", ChatBoxAeNet.class );
+//		manager.registerBox( "ChatBoxBoardSelector", ChatBoxBoardSelector.class );
+//		manager.registerBox( "ChatBoxChannel", ChatBoxChannel.class );
+//		manager.registerBox( "ChatBoxCoord", ChatBoxCoord.class );
+		manager.registerBox( "chatboxfiller", ChatBoxFiller.class );
+		manager.registerBox( "ChatBoxFlickerTest", ChatBoxFlickerTest.class );
+//		manager.registerBox( "ChatBoxRainbow", ChatBoxRainbow.class );
+//		manager.registerBox( "ChatBoxSlate", ChatBoxSlate.class );
+//		manager.registerBox( "ChatBoxTabCompletes", ChatBoxTabCompletes.class );
+//		manager.registerBox( "ChatBoxTicker", ChatBoxTicker.class );
 	}
 
 	// Getters

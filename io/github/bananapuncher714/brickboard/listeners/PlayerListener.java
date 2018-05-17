@@ -3,7 +3,7 @@ package io.github.bananapuncher714.brickboard.listeners;
 import io.github.bananapuncher714.brickboard.BrickBoard;
 import io.github.bananapuncher714.brickboard.BrickPlayer;
 import io.github.bananapuncher714.brickboard.BrickPlayerManager;
-import io.github.bananapuncher714.brickboard.chat.ChatMessage;
+import io.github.bananapuncher714.brickboard.api.chat.ChatMessage;
 import io.github.bananapuncher714.tinyprotocol.TinyProtocol;
 
 import org.bukkit.Bukkit;

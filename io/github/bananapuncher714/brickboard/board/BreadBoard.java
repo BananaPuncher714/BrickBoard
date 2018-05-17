@@ -13,10 +13,10 @@ import org.bukkit.entity.Player;
 import io.github.bananapuncher714.brickboard.BrickBoard;
 import io.github.bananapuncher714.brickboard.BrickPlayer;
 import io.github.bananapuncher714.brickboard.BrickPlayerManager;
-import io.github.bananapuncher714.brickboard.chat.ChatComponent;
-import io.github.bananapuncher714.brickboard.chat.ChatMessage;
-import io.github.bananapuncher714.brickboard.chat.ClickAction;
-import io.github.bananapuncher714.brickboard.chat.HoverAction;
+import io.github.bananapuncher714.brickboard.api.chat.ChatComponent;
+import io.github.bananapuncher714.brickboard.api.chat.ChatMessage;
+import io.github.bananapuncher714.brickboard.api.chat.ClickAction;
+import io.github.bananapuncher714.brickboard.api.chat.HoverAction;
 import io.github.bananapuncher714.brickboard.objects.MinecraftFontContainer;
 import io.github.bananapuncher714.brickboard.util.MessageUtil;
 

@@ -2,13 +2,17 @@ package io.github.bananapuncher714.brickboard.gui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 import io.github.bananapuncher714.brickboard.BrickPlayer;
 import io.github.bananapuncher714.brickboard.BrickPlayerManager;
 import io.github.bananapuncher714.brickboard.FontManager;
-import io.github.bananapuncher714.brickboard.chat.ChatMessage;
+import io.github.bananapuncher714.brickboard.api.ChatBox;
+import io.github.bananapuncher714.brickboard.api.chat.ChatComponent;
+import io.github.bananapuncher714.brickboard.api.chat.ChatMessage;
 import io.github.bananapuncher714.brickboard.util.MessageUtil;
 import io.github.bananapuncher714.brickboard.util.Util;
 import io.github.bananapuncher714.ngui.objects.BoxCoord;
@@ -63,7 +67,7 @@ public class ChatBoxChannel extends ChatBox {
 		}
 		int len = rows - chat.size();
 		for ( int i = 0; i < len; i++ ) {
-			chat.add( ChatMessage.getMessageFromString( " " ) );
+			chat.add( new ChatMessage().addComponent( new ChatComponent( "" ) ) );
 		}
 		
 		Util.reverseList( chat );
@@ -75,5 +79,14 @@ public class ChatBoxChannel extends ChatBox {
 	@Override
 	public ChatBox clone() {
 		return new ChatBoxChannel( manager, channel );
+	}
+
+	@Override
+	public ConfigurationSection serialize() {
+		return null;
+	}
+	
+	public static ChatBox deserialize( ConfigurationSection map ) {
+		return null;
 	}
 }

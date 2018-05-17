@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import io.github.bananapuncher714.brickboard.chat.ChatMessage;
+import io.github.bananapuncher714.brickboard.api.chat.ChatMessage;
 import io.github.bananapuncher714.brickboard.objects.Board;
 import io.github.bananapuncher714.brickboard.objects.MinecraftFontContainer;
 
@@ -20,7 +20,7 @@ public class BrickPlayer implements Serializable {
 	private String[] lastTabCompletes = null;
 	private String activeChannel = LOG_CHANNEL_NAME;
 	private String container = null;
-	private String activeBoard = null;
+	private Board activeBoard = null;
 	
 	private int page = 0;
 	
@@ -82,12 +82,12 @@ public class BrickPlayer implements Serializable {
 		return container;
 	}
 	
-	public String getActiveBoard() {
+	public Board getActiveBoard() {
 		return activeBoard;
 	}
 	
 	public void setActiveBoard( Board board ) {
-		activeBoard = board.getId();
+		activeBoard = board;
 	}
 	
 	public boolean setFont( MinecraftFontContainer container ) {

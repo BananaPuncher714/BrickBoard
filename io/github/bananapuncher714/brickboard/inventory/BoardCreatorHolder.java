@@ -14,9 +14,9 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import io.github.bananapuncher714.brickboard.gui.ChatBox;
+import io.github.bananapuncher714.brickboard.api.ChatBox;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxFiller;
-import io.github.bananapuncher714.brickboard.objects.BoardTemplate;
+import io.github.bananapuncher714.brickboard.objects.Board;
 import io.github.bananapuncher714.ngui.inventory.BananaHolder;
 import io.github.bananapuncher714.ngui.items.ItemBuilder;
 import io.github.bananapuncher714.ngui.items.SkullBuilder;
@@ -29,14 +29,14 @@ public class BoardCreatorHolder extends BananaHolder {
 	public static final String ARROW_UP = "http://textures.minecraft.net/texture/5da027477197c6fd7ad33014546de392b4a51c634ea68c8b7bcc0131c83e3f";
 	public static final int MAX_ROWS = 20;
 	
-	BoardTemplate template;
+	Board board;
 	Player player;
 	Inventory inventory;
 	int page = 0;
 	
-	public BoardCreatorHolder( Player player, BoardTemplate template ) {
+	public BoardCreatorHolder( Player player, Board template ) {
 		this.player = player;
-		this.template = template;
+		this.board = template;
 		inventory = Bukkit.createInventory( this, 54, "Creating a new board: " + template.getId() );
 	}
 
@@ -61,15 +61,15 @@ public class BoardCreatorHolder extends BananaHolder {
 			inventory.setItem( slot, item );
 		}
 		
-		double slotWidth = template.getWidth() / 8.0;
+		double slotWidth = board.getWidth() / 8.0;
 		Map< BoxCoord, ItemStack > organized = new TreeMap< BoxCoord, ItemStack >();
-		for ( ChatBox box : template.getContainers().keySet() ) {
+		for ( ChatBox box : board.getContainers().keySet() ) {
 			ItemStack item = new ItemStack( Material.PAPER );
 			ItemMeta meta = item.getItemMeta();
 			meta.setDisplayName( box.getClass().getSimpleName() );
 			item.setItemMeta( meta );
 			
-			BoxCoord coord = template.getContainers().get( box );
+			BoxCoord coord = board.getContainers().get( box );
 			int col = ( int ) ( coord.getX() / slotWidth );
 			int row = coord.getY();
 			
@@ -126,11 +126,11 @@ public class BoardCreatorHolder extends BananaHolder {
 				if ( name.equalsIgnoreCase( "filler" ) ) {
 					ChatBoxFiller filler = new ChatBoxFiller( ChatColor.GREEN );
 					int[] coords = GuiUtil.slotToCoord( event.getSlot(), 9 );
-					int x = ( int ) Math.ceil( coords[ 0 ] * ( template.getWidth() / 8.0 ) );
+					int x = ( int ) Math.ceil( coords[ 0 ] * ( board.getWidth() / 8.0 ) );
 					System.out.println( coords[ 0 ] + " into " + x );
 					int y = coords[ 1 ] + page;
-					template.setContainer( filler, new BoxCoord( x, y ) );
-					template.sort( true );
+					board.setContainer( filler, new BoxCoord( x, y ) );
+					board.sort( true );
 				}
 			}
 			getInventory();

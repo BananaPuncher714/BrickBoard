@@ -2,21 +2,20 @@ package io.github.bananapuncher714.brickboard.gui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 import io.github.bananapuncher714.brickboard.BrickPlayer;
 import io.github.bananapuncher714.brickboard.BrickPlayerManager;
 import io.github.bananapuncher714.brickboard.FontManager;
-import io.github.bananapuncher714.brickboard.chat.ChatMessage;
+import io.github.bananapuncher714.brickboard.api.ChatBox;
+import io.github.bananapuncher714.brickboard.api.chat.ChatMessage;
 import io.github.bananapuncher714.brickboard.objects.MinecraftFontContainer;
 import io.github.bananapuncher714.brickboard.util.MessageUtil;
-import io.github.bananapuncher714.ngui.items.ItemBuilder;
 import io.github.bananapuncher714.ngui.objects.BoxCoord;
-import io.github.bananapuncher714.ngui.util.NBTEditor;
 
 public class ChatBoxAeNet extends ChatBox {
 	private static final List< ChatMessage > messages;
@@ -102,5 +101,14 @@ public class ChatBoxAeNet extends ChatBox {
 	@Override
 	public ChatBox clone() {
 		return new ChatBoxAeNet( manager );
+	}
+	
+	@Override
+	public ConfigurationSection serialize() {
+		return null;
+	}
+	
+	public static ChatBox deserialize( ConfigurationSection map ) {
+		return null;
 	}
 }

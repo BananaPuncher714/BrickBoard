@@ -1,26 +1,26 @@
-package io.github.bananapuncher714.brickboard.chat;
+package io.github.bananapuncher714.brickboard.api.chat;
 
 import java.io.Serializable;
 
 /**
- * Allow messages to be displayed when hovered over; Text must use legacy formatting
+ * Allow messages to do something when clicked on
  * 
  * @author BananaPuncher714
  */
-public class HoverAction implements Cloneable, Serializable {
+public class ClickAction implements Cloneable, Serializable {
 	protected Action action;
 	protected String message;
-
-	public HoverAction( Action action, String message ) {
+	
+	public ClickAction( Action action, String message ) {
 		this.action = action;
 		this.message = message;
 	}
-	
+
 	public Action getAction() {
 		return action;
 	}
 
-	public HoverAction setAction( Action action ) {
+	public ClickAction setAction(Action action) {
 		this.action = action;
 		return this;
 	}
@@ -29,20 +29,20 @@ public class HoverAction implements Cloneable, Serializable {
 		return message;
 	}
 
-	public HoverAction setMessage( String message ) {
+	public ClickAction setMessage(String message) {
 		this.message = message;
 		return this;
 	}
 
 	public enum Action {
-		SHOW_ACHIEVEMENT, SHOW_ENTITY, SHOW_ITEM, SHOW_TEXT;
+		OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND;
 	}
 	
 	@Override
-	public HoverAction clone() {
-		return new HoverAction( action, message );
+	public ClickAction clone() {
+		return new ClickAction( action, message );
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -60,7 +60,7 @@ public class HoverAction implements Cloneable, Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		HoverAction other = (HoverAction) obj;
+		ClickAction other = (ClickAction) obj;
 		if (action != other.action)
 			return false;
 		if (message == null) {

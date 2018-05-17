@@ -8,9 +8,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import io.github.bananapuncher714.brickboard.BrickBoard;
-import io.github.bananapuncher714.brickboard.chat.ChatComponent;
-import io.github.bananapuncher714.brickboard.chat.ChatMessage;
-import io.github.bananapuncher714.brickboard.gui.ChatBox;
+import io.github.bananapuncher714.brickboard.api.ChatBox;
+import io.github.bananapuncher714.brickboard.api.chat.ChatComponent;
+import io.github.bananapuncher714.brickboard.api.chat.ChatMessage;
 import io.github.bananapuncher714.brickboard.objects.MinecraftFontContainer;
 import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
@@ -53,7 +53,7 @@ public class MessageUtil {
 	 * @param container
 	 * @return
 	 */
-	public static ChatMessage[] split( int width, ChatMessage message, MinecraftFontContainer container ) {
+	public static ChatMessage[] split( final int width, ChatMessage message, MinecraftFontContainer container ) {
 		// This is so the extend method can work properly, because there is no character with a width of 1
 		final int PADDING = 2;
 
@@ -81,6 +81,7 @@ public class MessageUtil {
 			
 			// Width of component
 			int curLen = container.getStringWidth( component.getText(), component.isBold() );
+			
 			// Width of the message
 			int messageLen = lengthOf( cur, container );
 
@@ -105,6 +106,7 @@ public class MessageUtil {
 			double avgWidth = curLen / ( double ) characters;
 			// Sub is how many characters it would take to fill up the rest of the message
 			int sub = ( int ) ( diff / avgWidth );
+			
 			String fore = component.getText().substring( 0, sub );
 			String aft = component.getText().substring( sub );
 			curLen = container.getStringWidth( fore, component.isBold() );

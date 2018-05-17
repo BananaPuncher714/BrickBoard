@@ -2,12 +2,15 @@ package io.github.bananapuncher714.brickboard.gui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
-import io.github.bananapuncher714.brickboard.chat.ChatComponent;
-import io.github.bananapuncher714.brickboard.chat.ChatMessage;
+import io.github.bananapuncher714.brickboard.api.ChatBox;
+import io.github.bananapuncher714.brickboard.api.chat.ChatComponent;
+import io.github.bananapuncher714.brickboard.api.chat.ChatMessage;
 import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
 public class ChatBoxRainbow extends ChatBox {
@@ -50,5 +53,14 @@ public class ChatBoxRainbow extends ChatBox {
 	@Override
 	public ChatBox clone() {
 		return new ChatBoxRainbow( prefix.getMessage(), message, suffix.getMessage() );
+	}
+
+	@Override
+	public ConfigurationSection serialize() {
+		return null;
+	}
+	
+	public static ChatBox deserialize( ConfigurationSection map ) {
+		return null;
 	}
 }

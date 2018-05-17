@@ -53,7 +53,7 @@ public class GuiUtil {
 							continue;
 						}
 						// See if the container is the only object
-						if ( overlap( coord.getX() + a, coord.getY() + b, coord.getWidth() + w, coord.getHeight() + h, compCoord.getX(), compCoord.getY(), compCoord.getWidth(), compCoord.getHeight() ) ) {
+						if ( overlap( Math.max( 0, coord.getX() + a ), Math.max( 0, coord.getY() + b ), coord.getWidth() + w, coord.getHeight() + h, compCoord.getX(), compCoord.getY(), compCoord.getWidth(), compCoord.getHeight() ) ) {
 							overlap = true;
 							break;
 						}

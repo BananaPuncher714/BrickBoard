@@ -2,13 +2,16 @@ package io.github.bananapuncher714.brickboard.gui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 import io.github.bananapuncher714.brickboard.BrickPlayer;
 import io.github.bananapuncher714.brickboard.BrickPlayerManager;
-import io.github.bananapuncher714.brickboard.chat.ChatComponent;
-import io.github.bananapuncher714.brickboard.chat.ChatMessage;
+import io.github.bananapuncher714.brickboard.api.ChatBox;
+import io.github.bananapuncher714.brickboard.api.chat.ChatComponent;
+import io.github.bananapuncher714.brickboard.api.chat.ChatMessage;
 import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
 public class ChatBoxTabCompletes extends ChatBox {
@@ -38,5 +41,14 @@ public class ChatBoxTabCompletes extends ChatBox {
 	@Override
 	public ChatBox clone() {
 		return new ChatBoxTabCompletes();
+	}
+
+	@Override
+	public ConfigurationSection serialize() {
+		return null;
+	}
+	
+	public static ChatBox deserialize( ConfigurationSection map ) {
+		return null;
 	}
 }

@@ -5,10 +5,10 @@ import org.bukkit.ChatColor;
 import io.github.bananapuncher714.brickboard.BoardManager;
 import io.github.bananapuncher714.brickboard.BrickBoard;
 import io.github.bananapuncher714.brickboard.FontManager;
-import io.github.bananapuncher714.brickboard.chat.ChatComponent;
-import io.github.bananapuncher714.brickboard.chat.ChatMessage;
-import io.github.bananapuncher714.brickboard.chat.ClickAction;
-import io.github.bananapuncher714.brickboard.chat.HoverAction;
+import io.github.bananapuncher714.brickboard.api.chat.ChatComponent;
+import io.github.bananapuncher714.brickboard.api.chat.ChatMessage;
+import io.github.bananapuncher714.brickboard.api.chat.ClickAction;
+import io.github.bananapuncher714.brickboard.api.chat.HoverAction;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxAeNet;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxChannel;
 import io.github.bananapuncher714.brickboard.gui.ChatBoxFiller;
@@ -23,7 +23,7 @@ public class BrickBoardDemo {
 	public static void addDefaultBoard( BrickBoard plugin ) {
 		FontManager fManager = FontManager.getInstance();
 		
-		Board breadBoard = new Board( "test", fManager );
+		Board breadBoard = new Board( "test" );
 		ChatMessage control = new ChatMessage();
 		control.addComponent( new ChatComponent( "[Log]" ).setColor( ChatColor.GRAY ).setBold( true ).setClickAction( new ClickAction( ClickAction.Action.RUN_COMMAND, "/brickboard execute changechannel log" ) ).setHoverAction( new HoverAction( HoverAction.Action.SHOW_TEXT, "View all raw messages" ) ) );
 		control.addComponent( new ChatComponent( " " ) );

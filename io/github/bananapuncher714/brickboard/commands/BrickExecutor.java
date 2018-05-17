@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 import io.github.bananapuncher714.brickboard.BrickBoard;
 import io.github.bananapuncher714.brickboard.inventory.BoardCreatorHolder;
-import io.github.bananapuncher714.brickboard.objects.BoardTemplate;
+import io.github.bananapuncher714.brickboard.objects.Board;
 
 public class BrickExecutor implements CommandExecutor {
 	private Map< String, ClickCommand > commands = new HashMap< String, ClickCommand >();
@@ -58,7 +58,7 @@ public class BrickExecutor implements CommandExecutor {
 		Player player = ( Player ) sender;
 		String name = args.length > 1 ? args[ 1 ] : "default";
 
-		( ( Player ) sender ).openInventory( new BoardCreatorHolder( player, new BoardTemplate( name ) ).getInventory() );
+		( ( Player ) sender ).openInventory( new BoardCreatorHolder( player, new Board( name ) ).getInventory() );
 	}
 
 	public void registerClickCommand( ClickCommand command ) {

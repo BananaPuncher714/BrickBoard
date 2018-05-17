@@ -1,4 +1,4 @@
-package io.github.bananapuncher714.brickboard.chat;
+package io.github.bananapuncher714.brickboard.api.chat;
 
 import java.io.Serializable;
 import java.util.ArrayList;

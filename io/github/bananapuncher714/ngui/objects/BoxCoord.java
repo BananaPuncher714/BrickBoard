@@ -99,4 +99,9 @@ public class BoxCoord implements Comparable< BoxCoord >, Cloneable {
 	public BoxCoord clone() {
 		return new BoxCoord( x, y, width, height );
 	}
+	
+	@Override
+	public String toString() {
+		return "{" + x + "," + y + "," + width + "," + height + "}";
+	}
 }

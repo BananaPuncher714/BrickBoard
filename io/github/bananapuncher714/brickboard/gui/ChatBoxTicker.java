@@ -6,12 +6,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
-import io.github.bananapuncher714.brickboard.chat.ChatComponent;
-import io.github.bananapuncher714.brickboard.chat.ChatMessage;
+import io.github.bananapuncher714.brickboard.api.ChatBox;
+import io.github.bananapuncher714.brickboard.api.chat.ChatComponent;
+import io.github.bananapuncher714.brickboard.api.chat.ChatMessage;
 import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
 public class ChatBoxTicker extends ChatBox {
@@ -47,7 +50,7 @@ public class ChatBoxTicker extends ChatBox {
 		List< ChatMessage > messages = new ArrayList< ChatMessage >();
 		
 		String ticker = tickerTape.substring( tickerIndex / 2, tickerIndex / 2 + 300 );
-		tickerIndex = ( tickerIndex + 1 ) % ( tickerTape.length() * 2 );
+		tickerIndex = ( tickerIndex + 1 ) % ( tickerTape.length() * 2 - 600 );
 		
 		ChatMessage message = new ChatMessage().addComponent( new ChatComponent( ticker ).setColor( ChatColor.GRAY ) );
 		
@@ -59,5 +62,14 @@ public class ChatBoxTicker extends ChatBox {
 	@Override
 	public ChatBox clone() {
 		return new ChatBoxTicker( tickerTape );
+	}
+
+	@Override
+	public ConfigurationSection serialize() {
+		return null;
+	}
+	
+	public static ChatBox deserialize( ConfigurationSection map ) {
+		return null;
 	}
 }

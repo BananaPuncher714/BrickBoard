@@ -2,7 +2,7 @@ package io.github.bananapuncher714.brickboard.api;
 
 import org.bukkit.entity.Player;
 
-import io.github.bananapuncher714.brickboard.chat.ChatMessage;
+import io.github.bananapuncher714.brickboard.api.chat.ChatMessage;
 
 public interface PacketHandler {
 	/**
