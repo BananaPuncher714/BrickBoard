@@ -2,8 +2,6 @@ package io.github.bananapuncher714.brickboard.gui;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;

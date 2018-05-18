@@ -1,11 +1,13 @@
 package io.github.bananapuncher714.ngui.objects;
 
+import java.io.Serializable;
+
 /**
  * Comparable, with top left corner being the least and bottom right being the greatest
  * 
  * @author BananaPuncher714
  */
-public class BoxCoord implements Comparable< BoxCoord >, Cloneable {
+public class BoxCoord implements Comparable< BoxCoord >, Cloneable, Serializable {
 	protected int x, y, height, width;
 	
 	public BoxCoord( int x, int y, int height, int width ) {

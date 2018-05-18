@@ -1,5 +1,6 @@
 package io.github.bananapuncher714.brickboard.api;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.bukkit.configuration.ConfigurationSection;
@@ -14,7 +15,7 @@ import io.github.bananapuncher714.ngui.objects.BoxCoord;
  * 
  * @author BananaPuncher714
  */
-public abstract class ChatBox implements Cloneable {
+public abstract class ChatBox implements Cloneable, Serializable {
 	/**
 	 * Return a list of ChatMessages, use '\n' for newlines
 	 * @param player

@@ -89,10 +89,6 @@ public class BoardManager {
 		return boards.values();
 	}
 	
-	public void registerChatBox( ChatBox chatbox ) {
-		
-	}
-	
 	public static final BoardManager getInstance() {
 		if ( instance == null ) {
 			instance = new BoardManager();

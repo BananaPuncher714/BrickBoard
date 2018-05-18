@@ -1,5 +1,6 @@
 package io.github.bananapuncher714.brickboard.objects;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -19,13 +20,12 @@ import io.github.bananapuncher714.brickboard.util.MessageUtil;
 import io.github.bananapuncher714.ngui.objects.BoxCoord;
 import io.github.bananapuncher714.ngui.util.GuiUtil;
 
-public class Board implements Cloneable {
+public class Board implements Cloneable, Serializable {
 	protected boolean forceExtend;
 	protected Map< ChatBox, BoxCoord > containers = new HashMap< ChatBox, BoxCoord >();
 	protected String id;
 	protected final int width, height;
 	protected final UUID uuid;
-	FontManager manager = FontManager.getInstance();
 	
 	public Board( String id ) {
 		this( id, false, BrickBoard.CHAT_LEN, 20 );
@@ -49,9 +49,9 @@ public class Board implements Cloneable {
 		
 		for ( ChatBox container : containers.keySet() ) {
 			if ( forceExtend ) {
-				output.put( containers.get( container ), MessageUtil.truncateAndExtend( player, container, containers.get( container ), 0, manager.getContainer( bPlayer.getFont() ) ) );
+				output.put( containers.get( container ), MessageUtil.truncateAndExtend( player, container, containers.get( container ), 0, FontManager.getInstance().getContainer( bPlayer.getFont() ) ) );
 			} else {
-				output.put( containers.get( container ), MessageUtil.truncateAndExtend( player, container, containers.get( container ), width, manager.getContainer( bPlayer.getFont() ) ) );
+				output.put( containers.get( container ), MessageUtil.truncateAndExtend( player, container, containers.get( container ), width, FontManager.getInstance().getContainer( bPlayer.getFont() ) ) );
 			}
 		}
 		ChatMessage message = new ChatMessage();

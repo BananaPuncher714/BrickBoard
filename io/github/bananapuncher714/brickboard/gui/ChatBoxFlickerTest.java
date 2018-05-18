@@ -58,6 +58,11 @@ public class ChatBoxFlickerTest extends ChatBox {
 		return null;
 	}
 	
+	@Override
+	public boolean equals( Object object ) {
+		return object instanceof ChatBoxFlickerTest;
+	}
+	
 	public static ChatBox deserialize( ConfigurationSection map ) {
 		return new ChatBoxFlickerTest();
 	}

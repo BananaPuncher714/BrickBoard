@@ -25,12 +25,11 @@ public class ChatBoxBoardSelector extends ChatBox {
 	@Override
 	public List< ChatMessage > getMessages( Player player, BoxCoord coord ) {
 		List< ChatMessage > messages = new ArrayList< ChatMessage >();
-		int i = 0;
 		ChatMessage message = new ChatMessage();
 		for ( Board board : manager.getBoards() ) {
-			ChatComponent component = new ChatComponent( "[" + i++ + "]" );
+			ChatComponent component = new ChatComponent( "[" + board.getId() + "]" );
 			component.setClickAction( new ClickAction( ClickAction.Action.RUN_COMMAND, "/brickboard execute changeboard " + board.getId() ) );
-			component.setHoverAction( new HoverAction( HoverAction.Action.SHOW_TEXT, "Board Preview " + i + "\n" + board.getMessage( player ).getMessage() ) );
+			component.setHoverAction( new HoverAction( HoverAction.Action.SHOW_TEXT, "Board Preview " + board.getId() + "\n" + board.getMessage( player ).getMessage() ) );
 			message.addComponent( component );
 			message.addComponent( new ChatComponent( " " ) );
 		}

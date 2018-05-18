@@ -8,8 +8,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import io.github.bananapuncher714.brickboard.BoardManager;
 import io.github.bananapuncher714.brickboard.BrickBoard;
 import io.github.bananapuncher714.brickboard.inventory.BoardCreatorHolder;
+import io.github.bananapuncher714.brickboard.inventory.ChatBoxSelectionHolder;
 import io.github.bananapuncher714.brickboard.objects.Board;
 
 public class BrickExecutor implements CommandExecutor {
@@ -22,6 +24,8 @@ public class BrickExecutor implements CommandExecutor {
 				executeCommand( arg0, arg3 );
 			} else if ( arg3[ 0 ].equalsIgnoreCase( "edit" ) ) {
 				newBoard( arg0, arg3 );
+			} else if ( arg3[ 0 ].equalsIgnoreCase( "presets" ) ) {
+				getPresets( arg0, arg3 );
 			}
 		}
 		return false;
@@ -58,7 +62,25 @@ public class BrickExecutor implements CommandExecutor {
 		Player player = ( Player ) sender;
 		String name = args.length > 1 ? args[ 1 ] : "default";
 
-		( ( Player ) sender ).openInventory( new BoardCreatorHolder( player, new Board( name ) ).getInventory() );
+		Board board = BoardManager.getInstance().getBoard( name );
+		if ( board == null ) {
+			board = new Board( name );
+			BoardManager.getInstance().addBoard( board );
+		}
+		
+		player.openInventory( new BoardCreatorHolder( player, board ).getInventory() );
+	}
+	
+	public void getPresets( CommandSender sender, String... args ) {
+		if ( !sender.hasPermission( BrickBoard.Permission.ADMIN.getPermission() ) ) {
+			sender.sendMessage( "No permission!" );
+			return;
+		} else if ( !( sender instanceof Player ) ) {
+			sender.sendMessage( "Must be player!" );
+			return;
+		}
+		Player player = ( Player ) sender;
+		player.openInventory( new ChatBoxSelectionHolder( player ).getInventory() );
 	}
 
 	public void registerClickCommand( ClickCommand command ) {

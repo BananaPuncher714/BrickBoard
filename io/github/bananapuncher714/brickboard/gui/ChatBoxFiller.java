@@ -38,7 +38,21 @@ public class ChatBoxFiller extends ChatBox {
 	public ConfigurationSection serialize() {
 		return null;
 	}
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ChatBoxFiller other = (ChatBoxFiller) obj;
+		if (color != other.color)
+			return false;
+		return true;
+	}
+
 	public static ChatBox deserialize( ConfigurationSection map ) {
 		ChatColor color = ChatColor.valueOf( map.getString( "color" ).toUpperCase() );
 		return new ChatBoxFiller( color );

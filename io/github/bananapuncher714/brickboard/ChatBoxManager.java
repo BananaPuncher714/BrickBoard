@@ -10,6 +10,9 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSortedMap;
+
 import io.github.bananapuncher714.brickboard.api.ChatBox;
 
 public class ChatBoxManager {
@@ -28,6 +31,10 @@ public class ChatBoxManager {
 	
 	public ChatBox getPreset( String id ) {
 		return presets.get( id.toLowerCase() ).clone();
+	}
+	
+	public Map< String, ChatBox > getPresets() {
+		return ImmutableMap.copyOf( presets );
 	}
 	
 	protected void loadPresets( File baseDir ) {
