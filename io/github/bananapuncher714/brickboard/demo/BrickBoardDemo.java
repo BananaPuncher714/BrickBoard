@@ -42,10 +42,10 @@ public class BrickBoardDemo {
 		breadBoard.setContainer( new ChatBoxFiller( ChatColor.AQUA ), new BoxCoord( 0, 7 ) );
 		breadBoard.setContainer( new ChatBoxFiller( ChatColor.AQUA ), new BoxCoord( 0, 9 ) );
 		breadBoard.setContainer( new ChatBoxSlate( ChatMessage.getMessageFromString( ChatColor.DARK_GREEN + "Server TPS: " + ChatColor.GREEN + "%server_tps_1%  / 20" ) ), new BoxCoord( 0, 8 ) );
-		breadBoard.setContainer( new ChatBoxChannel( fManager ), new BoxCoord( 0, 10 ) );
+		breadBoard.setContainer( new ChatBoxChannel(), new BoxCoord( 0, 10 ) );
 		breadBoard.setContainer( new ChatBoxFlickerTest(), new BoxCoord( 150, 8 ) );
 //		breadBoard.setContainer( new ChatBoxRainbow( ChatColor.AQUA + "----[", " BrickBoard by BananaPuncher714 ", ChatColor.AQUA + "]----" ), new BoxCoord( 0, 0, 0, 0 ) );
-		breadBoard.setContainer( new ChatBoxAeNet( fManager ), new BoxCoord( 0, 0 ) );
+		breadBoard.setContainer( new ChatBoxAeNet(), new BoxCoord( 0, 0 ) );
 		
 		breadBoard.sort( true );
 		

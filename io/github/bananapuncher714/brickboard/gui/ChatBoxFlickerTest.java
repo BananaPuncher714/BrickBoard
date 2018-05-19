@@ -13,6 +13,7 @@ import io.github.bananapuncher714.brickboard.FontManager;
 import io.github.bananapuncher714.brickboard.api.ChatBox;
 import io.github.bananapuncher714.brickboard.api.chat.ChatComponent;
 import io.github.bananapuncher714.brickboard.api.chat.ChatMessage;
+import io.github.bananapuncher714.brickboard.objects.Board;
 import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
 public class ChatBoxFlickerTest extends ChatBox {
@@ -30,7 +31,7 @@ public class ChatBoxFlickerTest extends ChatBox {
 	}
 	
 	@Override
-	public List< ChatMessage > getMessages( Player player, BoxCoord coord ) {
+	public List< ChatMessage > getMessages( Board board, Player player, BoxCoord coord ) {
 		List< ChatMessage > flickers = new ArrayList< ChatMessage >();
 		int length = FontManager.getInstance().getDefaultContainer().getStringWidth( CHARS, false );
 		int amount = coord.getWidth() / length;

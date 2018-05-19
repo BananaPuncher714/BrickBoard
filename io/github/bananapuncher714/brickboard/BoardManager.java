@@ -22,14 +22,17 @@ public class BoardManager {
 	
 	private Map< UUID, Board > boards = new HashMap< UUID, Board >();
 	
-	private Board defaultBoard;
-	
 	public BoardManager() {
-		defaultBoard = new Board( "default_board" );
+		setDefBoard();
+	}
+	
+	private void setDefBoard() {
+		Board defaultBoard = new Board( "default" );
 		defaultBoard.setContainer( new ChatBoxRainbow( ChatColor.AQUA + "----[", " BrickBoard by BananaPuncher714 ", ChatColor.AQUA + "]----" ), new BoxCoord( 0, 0, 0, 0 ) );
-		defaultBoard.setContainer( new ChatBoxBoardSelector( this ), new BoxCoord( 0, 1 ) );
-		defaultBoard.setContainer( new ChatBoxChannel( FontManager.getInstance() ), new BoxCoord( 0, 2 ) );
+		defaultBoard.setContainer( new ChatBoxBoardSelector(), new BoxCoord( 0, 1 ) );
+		defaultBoard.setContainer( new ChatBoxChannel(), new BoxCoord( 0, 2 ) );
 		defaultBoard.sort( true );
+		addBoard( defaultBoard );
 	}
 	
 	protected void loadBoards( File baseDir ) {
@@ -77,12 +80,12 @@ public class BoardManager {
 		return boards.get( id );
 	}
 	
-	public void setDefaultBoard( Board board ) {
-		defaultBoard = board;
-	}
-	
 	public Board getDefaultBoard() {
-		return defaultBoard;
+		Board board = getBoard( "default" );
+		if ( board == null ) {
+			setDefBoard();
+		}
+		return getBoard( "default" );
 	}
 	
 	public Collection< Board > getBoards() {

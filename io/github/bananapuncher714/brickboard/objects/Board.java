@@ -49,9 +49,9 @@ public class Board implements Cloneable, Serializable {
 		
 		for ( ChatBox container : containers.keySet() ) {
 			if ( forceExtend ) {
-				output.put( containers.get( container ), MessageUtil.truncateAndExtend( player, container, containers.get( container ), 0, FontManager.getInstance().getContainer( bPlayer.getFont() ) ) );
+				output.put( containers.get( container ), MessageUtil.truncateAndExtend( this, player, container, containers.get( container ), 0, FontManager.getInstance().getContainer( bPlayer.getFont() ) ) );
 			} else {
-				output.put( containers.get( container ), MessageUtil.truncateAndExtend( player, container, containers.get( container ), width, FontManager.getInstance().getContainer( bPlayer.getFont() ) ) );
+				output.put( containers.get( container ), MessageUtil.truncateAndExtend( this, player, container, containers.get( container ), width, FontManager.getInstance().getContainer( bPlayer.getFont() ) ) );
 			}
 		}
 		ChatMessage message = new ChatMessage();

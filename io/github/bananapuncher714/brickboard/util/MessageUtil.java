@@ -2,15 +2,17 @@ package io.github.bananapuncher714.brickboard.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import io.github.bananapuncher714.brickboard.BrickBoard;
 import io.github.bananapuncher714.brickboard.api.ChatBox;
 import io.github.bananapuncher714.brickboard.api.chat.ChatComponent;
 import io.github.bananapuncher714.brickboard.api.chat.ChatMessage;
+import io.github.bananapuncher714.brickboard.objects.Board;
 import io.github.bananapuncher714.brickboard.objects.MinecraftFontContainer;
 import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
@@ -20,6 +22,26 @@ import io.github.bananapuncher714.ngui.objects.BoxCoord;
  * @author BananaPuncher714
  */
 public class MessageUtil {
+	
+	public static List< String > getMatches( String string, String regex ) {
+		Pattern pattern = Pattern.compile( regex );
+		Matcher matcher = pattern.matcher( string );
+		List< String > matches = new ArrayList< String >();
+		while ( matcher.find() ) {
+			matches.add( matcher.group( 1 ) );
+		}
+		return matches;
+	}
+	
+	public static String getMatch( String string, String regex ) {
+		Pattern pattern = Pattern.compile( regex );
+		Matcher matcher = pattern.matcher( string );
+		if ( matcher.find() ) {
+			return matcher.group( 1 );
+		} else {
+			return null;
+		}
+	}
 
 	/**
 	 * Get the length of a given ChatMessage
@@ -269,13 +291,13 @@ public class MessageUtil {
 	 * @param fontContainer
 	 * @return
 	 */
-	public static ChatMessage[] truncateAndExtend( Player player, ChatBox container, BoxCoord coord, int overallWidth, MinecraftFontContainer fontContainer ) {
+	public static ChatMessage[] truncateAndExtend( Board board, Player player, ChatBox container, BoxCoord coord, int overallWidth, MinecraftFontContainer fontContainer ) {
 		ChatMessage[] lines = new ChatMessage[ coord.getHeight() ];
 		int width = coord.getWidth();
 		if ( width == 0 ) {
 			throw new IllegalArgumentException( "Invalid dimensions for a BoxCoord! Width must be at least 1!" );
 		}
-		List< ChatMessage > buffer = container.getMessages( player, coord );
+		List< ChatMessage > buffer = container.getMessages( board, player, coord );
 		List< ChatMessage > splitted = new ArrayList< ChatMessage >();
 		boolean isEOL = coord.getX() + coord.getWidth() >= overallWidth;
 		for ( ChatMessage raw : buffer ) {
@@ -302,5 +324,4 @@ public class MessageUtil {
 		}
 		return lines;
 	}
-
 }

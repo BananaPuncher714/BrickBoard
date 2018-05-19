@@ -3,6 +3,7 @@ package io.github.bananapuncher714.brickboard.commands;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -10,6 +11,9 @@ import org.bukkit.entity.Player;
 
 import io.github.bananapuncher714.brickboard.BoardManager;
 import io.github.bananapuncher714.brickboard.BrickBoard;
+import io.github.bananapuncher714.brickboard.BrickPlayer;
+import io.github.bananapuncher714.brickboard.BrickPlayerManager;
+import io.github.bananapuncher714.brickboard.api.chat.ChatMessage;
 import io.github.bananapuncher714.brickboard.inventory.BoardCreatorHolder;
 import io.github.bananapuncher714.brickboard.inventory.ChatBoxSelectionHolder;
 import io.github.bananapuncher714.brickboard.objects.Board;
@@ -26,6 +30,8 @@ public class BrickExecutor implements CommandExecutor {
 				newBoard( arg0, arg3 );
 			} else if ( arg3[ 0 ].equalsIgnoreCase( "presets" ) ) {
 				getPresets( arg0, arg3 );
+			} else if ( arg3[ 0 ].equalsIgnoreCase( "parse" ) ) {
+				parse( arg0, arg3 );
 			}
 		}
 		return false;
@@ -86,5 +92,23 @@ public class BrickExecutor implements CommandExecutor {
 	public void registerClickCommand( ClickCommand command ) {
 		commands.put( command.getId().toLowerCase(), command );
 	}
-
+	
+	private void parse( CommandSender sender, String... args )  {
+		if ( !sender.hasPermission( BrickBoard.Permission.ADMIN.getPermission() ) ) {
+			sender.sendMessage( "No permission!" );
+			return;
+		} else if ( !( sender instanceof Player ) ) {
+			sender.sendMessage( "Must be player!" );
+			return;
+		}
+		Player player = ( Player ) sender;
+		StringBuilder builder = new StringBuilder();
+		for ( String arg : args ) {
+			builder.append( arg );
+			builder.append( " " );
+		}
+		String message = builder.toString().replace( '&', ChatColor.COLOR_CHAR );
+		BrickPlayer bPlayer = BrickPlayerManager.getInstance().getPlayer( player.getUniqueId() );
+		bPlayer.addToLog( ChatMessage.getMessageFromString( message, true ) );
+	}
 }

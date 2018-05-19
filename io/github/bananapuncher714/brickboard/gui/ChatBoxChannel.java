@@ -14,6 +14,7 @@ import io.github.bananapuncher714.brickboard.FontManager;
 import io.github.bananapuncher714.brickboard.api.ChatBox;
 import io.github.bananapuncher714.brickboard.api.chat.ChatComponent;
 import io.github.bananapuncher714.brickboard.api.chat.ChatMessage;
+import io.github.bananapuncher714.brickboard.objects.Board;
 import io.github.bananapuncher714.brickboard.util.MessageUtil;
 import io.github.bananapuncher714.brickboard.util.Util;
 import io.github.bananapuncher714.ngui.objects.BoxCoord;
@@ -25,25 +26,21 @@ import io.github.bananapuncher714.ngui.objects.BoxCoord;
  */
 public class ChatBoxChannel extends ChatBox {
 	String channel;
-	FontManager manager;
-	/**
-	 * Creates a channel window which shows the player's active channel
-	 */
-	public ChatBoxChannel( FontManager manager ) {
-		this( manager, null );
-	}
 
+	public ChatBoxChannel() {
+		this( null );
+	}
+	
 	/**
 	 * Creates a channel window which shows a fixed channel
 	 * @param channel
 	 */
-	public ChatBoxChannel( FontManager manager, String channel ) {
-		this.manager = manager;
+	public ChatBoxChannel( String channel ) {
 		this.channel = channel;
 	}
 
 	@Override
-	public List< ChatMessage > getMessages( Player player, BoxCoord coord ) {
+	public List< ChatMessage > getMessages( Board board, Player player, BoxCoord coord ) {
 		List< ChatMessage > messages = new ArrayList< ChatMessage >();
 		int rows = coord.getHeight();
 		BrickPlayer bPlayer = BrickPlayerManager.getInstance().getPlayer( player.getUniqueId() );
@@ -58,7 +55,7 @@ public class ChatBoxChannel extends ChatBox {
 				break;
 			}
 			ChatMessage message = channel.get( index-- );
-			ChatMessage[] split = MessageUtil.split( coord.getWidth(), message.clone(), manager.getContainer( bPlayer.getFont() ) );
+			ChatMessage[] split = MessageUtil.split( coord.getWidth(), message.clone(), FontManager.getInstance().getContainer( bPlayer.getFont() ) );
 			for ( int i = split.length; i > 0; i--  ) {
 				chat.add( split[ i - 1 ] );
 				if ( chat.size() > rows - 1 ) {
@@ -79,7 +76,7 @@ public class ChatBoxChannel extends ChatBox {
 
 	@Override
 	public ChatBox clone() {
-		return new ChatBoxChannel( manager, channel );
+		return new ChatBoxChannel( channel );
 	}
 
 	@Override
@@ -88,6 +85,6 @@ public class ChatBoxChannel extends ChatBox {
 	}
 	
 	public static ChatBox deserialize( ConfigurationSection map ) {
-		return null;
+		return new ChatBoxChannel( map.getString( "channel" ) );
 	}
 }

@@ -7,6 +7,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 import io.github.bananapuncher714.brickboard.api.chat.ChatMessage;
+import io.github.bananapuncher714.brickboard.objects.Board;
 import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
 /**
@@ -24,7 +25,7 @@ public abstract class ChatBox implements Cloneable, Serializable {
 	 * The BoxCoord in terms of chat positioning, may vary among players
 	 * @return
 	 */
-	public abstract List< ChatMessage > getMessages( Player player, BoxCoord coord );
+	public abstract List< ChatMessage > getMessages( Board board, Player player, BoxCoord coord );
 	
 	/**
 	 * Load a ChatBox from a FileConfiguration object, used for getting user created ones

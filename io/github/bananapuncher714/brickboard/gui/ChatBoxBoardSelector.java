@@ -16,17 +16,15 @@ import io.github.bananapuncher714.brickboard.objects.Board;
 import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
 public class ChatBoxBoardSelector extends ChatBox {
-	BoardManager manager;
-	
-	public ChatBoxBoardSelector( BoardManager boardManager ) {
-		manager = boardManager;
-	}
 
 	@Override
-	public List< ChatMessage > getMessages( Player player, BoxCoord coord ) {
+	public List< ChatMessage > getMessages( Board mainBoard, Player player, BoxCoord coord ) {
 		List< ChatMessage > messages = new ArrayList< ChatMessage >();
 		ChatMessage message = new ChatMessage();
-		for ( Board board : manager.getBoards() ) {
+		for ( Board board : BoardManager.getInstance().getBoards() ) {
+			if ( board.getUUID().equals( mainBoard.getUUID() ) ) {
+				continue;
+			}
 			ChatComponent component = new ChatComponent( "[" + board.getId() + "]" );
 			component.setClickAction( new ClickAction( ClickAction.Action.RUN_COMMAND, "/brickboard execute changeboard " + board.getId() ) );
 			component.setHoverAction( new HoverAction( HoverAction.Action.SHOW_TEXT, "Board Preview " + board.getId() + "\n" + board.getMessage( player ).getMessage() ) );
@@ -40,7 +38,7 @@ public class ChatBoxBoardSelector extends ChatBox {
 	
 	@Override
 	public ChatBox clone() {
-		return new ChatBoxBoardSelector( manager );
+		return new ChatBoxBoardSelector();
 	}
 
 	@Override
@@ -49,6 +47,6 @@ public class ChatBoxBoardSelector extends ChatBox {
 	}
 	
 	public static ChatBox deserialize( ConfigurationSection map ) {
-		return null;
+		return new ChatBoxBoardSelector();
 	}
 }

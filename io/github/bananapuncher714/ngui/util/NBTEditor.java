@@ -207,11 +207,14 @@ public class NBTEditor {
 		}
 	}
 	
-	public static String getString( String html, String regex ) {
+	public static String getMatch( String string, String regex ) {
 		Pattern pattern = Pattern.compile( regex );
-		Matcher matcher = pattern.matcher( html );
-		if ( matcher.find() ) return matcher.group( 1 );
-		else return null;
+		Matcher matcher = pattern.matcher( string );
+		if ( matcher.find() ) {
+			return matcher.group( 1 );
+		} else {
+			return null;
+		}
 	}
 
 	public final static ItemStack getHead( String skinURL ) {
@@ -257,7 +260,7 @@ public class NBTEditor {
 			for ( Property prop : profile.getProperties().values() ) {
 				if ( prop.getName().equals( "textures" ) ) {
 					String texture = new String( Base64.decodeBase64( prop.getValue() ) );
-					return getString( texture, "\\{\"url\":\"(.*?)\"\\}" );
+					return getMatch( texture, "\\{\"url\":\"(.*?)\"\\}" );
 				}
 			}
 			return null;

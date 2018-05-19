@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 
 import io.github.bananapuncher714.brickboard.api.ChatBox;
 import io.github.bananapuncher714.brickboard.api.chat.ChatMessage;
+import io.github.bananapuncher714.brickboard.objects.Board;
 import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
 public class ChatBoxFiller extends ChatBox {
@@ -23,7 +24,7 @@ public class ChatBoxFiller extends ChatBox {
 	}
 	
 	@Override
-	public List< ChatMessage > getMessages( Player player, BoxCoord coord ) {
+	public List< ChatMessage > getMessages( Board board, Player player, BoxCoord coord ) {
 		List< ChatMessage > messages = new ArrayList< ChatMessage >();
 		messages.add( ChatMessage.getMessageFromString( color + stuffing ) );
 		return messages;

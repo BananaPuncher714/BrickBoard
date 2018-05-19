@@ -13,18 +13,13 @@ import io.github.bananapuncher714.brickboard.BrickPlayerManager;
 import io.github.bananapuncher714.brickboard.FontManager;
 import io.github.bananapuncher714.brickboard.api.ChatBox;
 import io.github.bananapuncher714.brickboard.api.chat.ChatMessage;
+import io.github.bananapuncher714.brickboard.objects.Board;
 import io.github.bananapuncher714.brickboard.objects.MinecraftFontContainer;
 import io.github.bananapuncher714.brickboard.util.MessageUtil;
 import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
 public class ChatBoxAeNet extends ChatBox {
 	private static final List< ChatMessage > messages;
-	
-	private FontManager manager;
-	
-	public ChatBoxAeNet( FontManager manager ) {
-		this.manager = manager;
-	}
 	
 	static {
 		messages = new ArrayList< ChatMessage >();
@@ -87,20 +82,20 @@ public class ChatBoxAeNet extends ChatBox {
 	private double index = 0;
 
 	@Override
-	public List< ChatMessage > getMessages( Player player, BoxCoord coord ) {
+	public List< ChatMessage > getMessages( Board board, Player player, BoxCoord coord ) {
 		List< ChatMessage > msgs = new ArrayList< ChatMessage >();
 		int width = coord.getWidth();
 		index = ( index + .7 ) % messages.size();
 		ChatMessage message = messages.get( ( int ) index );
 		BrickPlayer bPlayer = BrickPlayerManager.getInstance().getPlayer( player.getUniqueId() );
-		MinecraftFontContainer container = manager.getContainer( bPlayer.getFont() );
+		MinecraftFontContainer container = FontManager.getInstance().getContainer( bPlayer.getFont() );
 		msgs.add( MessageUtil.center( message, width, ' ', container ) );
 		return msgs;
 	}
 
 	@Override
 	public ChatBox clone() {
-		return new ChatBoxAeNet( manager );
+		return new ChatBoxAeNet();
 	}
 	
 	@Override
@@ -109,6 +104,6 @@ public class ChatBoxAeNet extends ChatBox {
 	}
 	
 	public static ChatBox deserialize( ConfigurationSection map ) {
-		return null;
+		return new ChatBoxAeNet();
 	}
 }

@@ -12,12 +12,13 @@ import io.github.bananapuncher714.brickboard.BrickPlayerManager;
 import io.github.bananapuncher714.brickboard.api.ChatBox;
 import io.github.bananapuncher714.brickboard.api.chat.ChatComponent;
 import io.github.bananapuncher714.brickboard.api.chat.ChatMessage;
+import io.github.bananapuncher714.brickboard.objects.Board;
 import io.github.bananapuncher714.ngui.objects.BoxCoord;
 
 public class ChatBoxTabCompletes extends ChatBox {
 
 	@Override
-	public List< ChatMessage > getMessages( Player player, BoxCoord coord ) {
+	public List< ChatMessage > getMessages( Board board, Player player, BoxCoord coord ) {
 		List< ChatMessage > messages = new ArrayList< ChatMessage >();
 		BrickPlayer bPlayer = BrickPlayerManager.getInstance().getPlayer( player.getUniqueId() );
 		
