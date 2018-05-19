@@ -166,18 +166,4 @@ public class BrickBoard extends JavaPlugin {
 	public static BrickBoard getInstance() {
 		return instance;
 	}
-	
-	public enum Permission {
-		ADMIN( "brickboard.admin" );
-		
-		private String permission;
-		
-		private Permission( String permission ) {
-			this.permission = permission;
-		}
-		
-		public String getPermission() {
-			return permission;
-		}
-	}
 }

@@ -1,0 +1,9 @@
+brickboard.admin
+
+brickboard.inventory.presets
+
+brickboard.boards.<board>.access
+brickboard.boards.<board>.edit
+
+brickboard.channels.<channel>.recieve
+brickboard.channels.<channel>.send

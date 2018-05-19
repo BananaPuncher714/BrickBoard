@@ -1,5 +1,6 @@
 package io.github.bananapuncher714.brickboard.listeners;
 
+import io.github.bananapuncher714.brickboard.BPerms;
 import io.github.bananapuncher714.brickboard.BrickBoard;
 import io.github.bananapuncher714.brickboard.BrickPlayer;
 import io.github.bananapuncher714.brickboard.BrickPlayerManager;
@@ -48,7 +49,13 @@ public class PlayerListener implements Listener {
 		if ( name.equalsIgnoreCase( "log" ) ) {
 			return;
 		}
+		if ( !BPerms.canWriteChannel( bPlayer.getActiveChannelName(), player ) ) {
+			return;
+		}
 		for ( Player onlinePlayer : Bukkit.getOnlinePlayers() ) {
+			if ( !BPerms.canAccessChannel( name, onlinePlayer ) ) {
+				continue;
+			}
 			BrickPlayer brickPlayer = BrickPlayerManager.getInstance().getPlayer( onlinePlayer.getUniqueId() );
 			brickPlayer.getChannel( name ).add( ChatMessage.getMessageFromString( String.format( event.getFormat(), player.getName(), event.getMessage() ) ) );
 		}

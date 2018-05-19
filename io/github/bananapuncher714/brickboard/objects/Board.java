@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.UUID;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -25,7 +24,6 @@ public class Board implements Cloneable, Serializable {
 	protected Map< ChatBox, BoxCoord > containers = new HashMap< ChatBox, BoxCoord >();
 	protected String id;
 	protected final int width, height;
-	protected final UUID uuid;
 	
 	public Board( String id ) {
 		this( id, false, BrickBoard.CHAT_LEN, 20 );
@@ -36,10 +34,9 @@ public class Board implements Cloneable, Serializable {
 	}
 	
 	public Board( String id, boolean forceExtend, int width, int height ) {
-		this.id = id;
+		this.id = id.replaceAll( "\\s", "" );
 		this.width = width;
 		this.height = height;
-		uuid = UUID.randomUUID();
 		this.forceExtend = forceExtend;
 	}
 	
@@ -91,10 +88,6 @@ public class Board implements Cloneable, Serializable {
 	
 	public void setId( String newId ) {
 		id = newId;
-	}
-	
-	public UUID getUUID() {
-		return uuid;
 	}
 	
 	public int getWidth() {

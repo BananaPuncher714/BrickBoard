@@ -9,6 +9,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import io.github.bananapuncher714.brickboard.BPerms;
 import io.github.bananapuncher714.brickboard.BoardManager;
 import io.github.bananapuncher714.brickboard.BrickBoard;
 import io.github.bananapuncher714.brickboard.BrickPlayer;
@@ -57,17 +58,21 @@ public class BrickExecutor implements CommandExecutor {
 		}
 	}
 
-	public void newBoard( CommandSender sender, String... args ) {
-		if ( !sender.hasPermission( BrickBoard.Permission.ADMIN.getPermission() ) ) {
-			sender.sendMessage( "No permission!" );
-			return;
-		} else if ( !( sender instanceof Player ) ) {
+	private void newBoard( CommandSender sender, String... args ) {
+		if ( !( sender instanceof Player ) ) {
+			// TODO message customization required
 			sender.sendMessage( "Must be player!" );
 			return;
 		}
 		Player player = ( Player ) sender;
 		String name = args.length > 1 ? args[ 1 ] : "default";
 
+		if ( !BPerms.canEdit( name, player ) ) {
+			// TODO message customization required
+			player.sendMessage( "No permission!" );
+			return;
+		}
+		
 		Board board = BoardManager.getInstance().getBoard( name );
 		if ( board == null ) {
 			board = new Board( name );
@@ -77,11 +82,13 @@ public class BrickExecutor implements CommandExecutor {
 		player.openInventory( new BoardCreatorHolder( player, board ).getInventory() );
 	}
 	
-	public void getPresets( CommandSender sender, String... args ) {
-		if ( !sender.hasPermission( BrickBoard.Permission.ADMIN.getPermission() ) ) {
+	private void getPresets( CommandSender sender, String... args ) {
+		if ( !BPerms.canGetPresets( sender ) ) {
+			// TODO message customization required
 			sender.sendMessage( "No permission!" );
 			return;
 		} else if ( !( sender instanceof Player ) ) {
+			// TODO message customization required
 			sender.sendMessage( "Must be player!" );
 			return;
 		}
@@ -93,11 +100,10 @@ public class BrickExecutor implements CommandExecutor {
 		commands.put( command.getId().toLowerCase(), command );
 	}
 	
+	// DEBUG
 	private void parse( CommandSender sender, String... args )  {
-		if ( !sender.hasPermission( BrickBoard.Permission.ADMIN.getPermission() ) ) {
-			sender.sendMessage( "No permission!" );
-			return;
-		} else if ( !( sender instanceof Player ) ) {
+		if ( !( sender instanceof Player ) ) {
+			// TODO message customization required
 			sender.sendMessage( "Must be player!" );
 			return;
 		}

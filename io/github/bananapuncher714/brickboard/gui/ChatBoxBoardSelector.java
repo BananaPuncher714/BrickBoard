@@ -6,6 +6,7 @@ import java.util.List;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
+import io.github.bananapuncher714.brickboard.BPerms;
 import io.github.bananapuncher714.brickboard.BoardManager;
 import io.github.bananapuncher714.brickboard.api.ChatBox;
 import io.github.bananapuncher714.brickboard.api.chat.ChatComponent;
@@ -22,7 +23,10 @@ public class ChatBoxBoardSelector extends ChatBox {
 		List< ChatMessage > messages = new ArrayList< ChatMessage >();
 		ChatMessage message = new ChatMessage();
 		for ( Board board : BoardManager.getInstance().getBoards() ) {
-			if ( board.getUUID().equals( mainBoard.getUUID() ) ) {
+			if ( board.getId().equals( mainBoard.getId() ) ) {
+				continue;
+			}
+			if ( !BPerms.hasBoardAccess( board.getId(), player ) ) {
 				continue;
 			}
 			ChatComponent component = new ChatComponent( "[" + board.getId() + "]" );

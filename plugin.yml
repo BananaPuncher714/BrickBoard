@@ -1,7 +1,7 @@
 name: BrickBoard
 main: io.github.bananapuncher714.brickboard.BrickBoard
-version: 0.7
-description: GUIS made easy with chat
+version: 0.9
+description: GUIs made easy with chat
 author: BananaPuncher714
 
 softdepend:

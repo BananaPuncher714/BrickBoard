@@ -15,12 +15,10 @@ public class BrickTabCompleter implements TabCompleter {
 	@Override
 	public List< String > onTabComplete( CommandSender sender, Command command, String label, String[] args ) {
 		List< String > completions = new ArrayList< String >();
-		if ( !sender.hasPermission( BrickBoard.Permission.ADMIN.getPermission() ) ) {
-			return completions;
-		}
 		List< String > aos = new ArrayList< String >();
 		if ( args.length == 0 || args.length == 1 ) {
 			aos.add( "edit" );
+			aos.add( "presets" );
 		}
 		
 		StringUtil.copyPartialMatches( args[ args.length - 1 ], aos, completions );

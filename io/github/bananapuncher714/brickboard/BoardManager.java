@@ -20,7 +20,7 @@ import io.github.bananapuncher714.ngui.objects.BoxCoord;
 public class BoardManager {
 	private static BoardManager instance;
 	
-	private Map< UUID, Board > boards = new HashMap< UUID, Board >();
+	private Map< String, Board > boards = new HashMap< String, Board >();
 	
 	public BoardManager() {
 		setDefBoard();
@@ -59,24 +59,15 @@ public class BoardManager {
 				board.setContainer( preset, coord );
 			}
 			board.sort( true );
-			boards.put( board.getUUID(), board );
+			boards.put( id, board );
 		}
 	}
 	
 	public void addBoard( Board board ) {
-		boards.put( board.getUUID(), board );
+		boards.put( board.getId(), board );
 	}
 	
 	public Board getBoard( String id ) {
-		for ( Board board : boards.values() ) {
-			if ( board.getId().equalsIgnoreCase( id ) ) {
-				return board;
-			}
-		}
-		return null;
-	}
-	
-	public Board getBoard( UUID id ) {
 		return boards.get( id );
 	}
 	

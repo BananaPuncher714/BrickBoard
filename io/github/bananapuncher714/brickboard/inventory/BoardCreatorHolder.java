@@ -156,7 +156,6 @@ public class BoardCreatorHolder extends BananaHolder {
 				int x = ( int ) Math.ceil( coords[ 0 ] * ( board.getWidth() / 8.0 ) );
 				int y = coords[ 1 ] + page;
 				
-				System.out.println( "Setting box in board!" );
 				board.setContainer( box, new BoxCoord( x, y ) );
 				board.sort( true );
 			}
