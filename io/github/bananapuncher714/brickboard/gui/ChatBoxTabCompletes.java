@@ -50,6 +50,6 @@ public class ChatBoxTabCompletes extends ChatBox {
 	}
 	
 	public static ChatBox deserialize( ConfigurationSection map ) {
-		return null;
+		return new ChatBoxTabCompletes();
 	}
 }

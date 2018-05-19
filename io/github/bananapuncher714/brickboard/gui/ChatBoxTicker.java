@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.bananapuncher714.brickboard.api.ChatBox;
@@ -67,10 +68,15 @@ public class ChatBoxTicker extends ChatBox {
 
 	@Override
 	public ConfigurationSection serialize() {
-		return null;
+		ConfigurationSection config = new YamlConfiguration();
+		config.set( "ticker", tickerTape );
+		return config;
 	}
 	
 	public static ChatBox deserialize( ConfigurationSection map ) {
-		return null;
+		if ( map == null || map.getString( "ticker" ) == null ) {
+			return null;
+		}
+		return new ChatBoxTicker( map.getString( "ticker" ) );
 	}
 }

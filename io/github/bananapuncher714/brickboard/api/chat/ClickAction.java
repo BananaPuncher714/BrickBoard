@@ -44,6 +44,11 @@ public class ClickAction implements Cloneable, Serializable {
 	}
 
 	@Override
+	public String toString() {
+		return "(" + action.name() + ":" + message + ")";
+	}
+	
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

@@ -145,16 +145,16 @@ public class BrickBoard extends JavaPlugin {
 	
 	private void registerChatBoxes() {
 		ChatBoxManager manager = ChatBoxManager.getInstance();
-//		manager.registerBox( "ChatBoxAeNet", ChatBoxAeNet.class );
-//		manager.registerBox( "ChatBoxBoardSelector", ChatBoxBoardSelector.class );
-//		manager.registerBox( "ChatBoxChannel", ChatBoxChannel.class );
-//		manager.registerBox( "ChatBoxCoord", ChatBoxCoord.class );
+		manager.registerBox( "ChatBoxAeNet", ChatBoxAeNet.class );
+		manager.registerBox( "ChatBoxBoardSelector", ChatBoxBoardSelector.class );
+		manager.registerBox( "ChatBoxChannel", ChatBoxChannel.class );
+		manager.registerBox( "ChatBoxCoord", ChatBoxCoord.class );
 		manager.registerBox( "chatboxfiller", ChatBoxFiller.class );
 		manager.registerBox( "ChatBoxFlickerTest", ChatBoxFlickerTest.class );
-//		manager.registerBox( "ChatBoxRainbow", ChatBoxRainbow.class );
-//		manager.registerBox( "ChatBoxSlate", ChatBoxSlate.class );
-//		manager.registerBox( "ChatBoxTabCompletes", ChatBoxTabCompletes.class );
-//		manager.registerBox( "ChatBoxTicker", ChatBoxTicker.class );
+		manager.registerBox( "ChatBoxRainbow", ChatBoxRainbow.class );
+		manager.registerBox( "ChatBoxSlate", ChatBoxSlate.class );
+		manager.registerBox( "ChatBoxTabCompletes", ChatBoxTabCompletes.class );
+		manager.registerBox( "ChatBoxTicker", ChatBoxTicker.class );
 	}
 
 	// Getters

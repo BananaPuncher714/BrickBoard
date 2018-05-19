@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.bananapuncher714.brickboard.api.ChatBox;
@@ -34,8 +35,8 @@ public class ChatBoxRainbow extends ChatBox {
 		colors.add( ChatColor.LIGHT_PURPLE );
 		colors.add( ChatColor.DARK_PURPLE );
 		
-		this.prefix = new ChatMessage().addComponent( new ChatComponent( prefix ) );
-		this.suffix = new ChatMessage().addComponent( new ChatComponent( suffix ) );
+		this.prefix = ChatMessage.getMessageFromString( prefix, true );
+		this.suffix = ChatMessage.getMessageFromString( suffix, true );
 		this.message = message;
 	}
 
@@ -58,10 +59,20 @@ public class ChatBoxRainbow extends ChatBox {
 
 	@Override
 	public ConfigurationSection serialize() {
-		return null;
+		ConfigurationSection config = new YamlConfiguration();
+		config.set( "prefix", prefix.toString() );
+		config.set( "message", message );
+		config.set( "suffix", suffix.toString() );
+		return config;
 	}
 	
 	public static ChatBox deserialize( ConfigurationSection map ) {
-		return null;
+		if ( map == null ) {
+			return null;
+		}
+		String suffix =  map.getString( "suffix" );
+		String message =  map.getString( "message" );
+		String prefix = map.getString( "prefix" );
+		return new ChatBoxRainbow( prefix, message, suffix );
 	}
 }

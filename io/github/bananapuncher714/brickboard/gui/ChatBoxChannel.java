@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.bananapuncher714.brickboard.BrickPlayer;
@@ -81,7 +82,9 @@ public class ChatBoxChannel extends ChatBox {
 
 	@Override
 	public ConfigurationSection serialize() {
-		return null;
+		ConfigurationSection config = new YamlConfiguration();
+		config.set( "channel", channel );
+		return config;
 	}
 	
 	public static ChatBox deserialize( ConfigurationSection map ) {

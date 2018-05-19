@@ -122,7 +122,7 @@ public class ChatComponent implements Cloneable, Serializable {
 		}
 		return builder.append( text ).toString();
 	}
-
+	
 	public ChatComponent clearFormatting() {
 		bold = false;
 		italic = false;
@@ -130,6 +130,25 @@ public class ChatComponent implements Cloneable, Serializable {
 		strikethrough = false;
 		underline = false;
 		return this;
+	}
+	
+	@Override
+	public String toString() {
+		if ( clickAction == null || hoverAction == null ) {
+			return getLegacyText();
+		}
+		StringBuilder builder = new StringBuilder();
+		builder.append( "<" );
+		builder.append( getLegacyText() );
+		if ( hoverAction != null ) {
+			builder.append( hoverAction.toString() );
+		}
+		if ( clickAction != null ) {
+			builder.append( clickAction.toString() );
+		}
+		builder.append( ">" );
+		return builder.toString();
+		
 	}
 	
 	@Override

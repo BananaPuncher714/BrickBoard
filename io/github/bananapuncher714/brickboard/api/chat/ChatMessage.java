@@ -74,7 +74,11 @@ public class ChatMessage implements Cloneable, Serializable {
 
 	@Override
 	public String toString() {
-		return getMessage();
+		StringBuilder builder = new StringBuilder();
+		for ( ChatComponent component : components ) {
+			builder.append( component.toString() );
+		}
+		return builder.toString();
 	}
 
 	public static ChatMessage getMessageFromString( String message ) {
@@ -84,11 +88,15 @@ public class ChatMessage implements Cloneable, Serializable {
 	public static ChatMessage getMessageFromString( String message, boolean readExtra ) {
 		ChatMessage chatMessage = new ChatMessage();
 
+		if ( message == null ) {
+			return chatMessage;
+		}
+		
 		ChatComponent last = new ChatComponent( "" );
 
 		List< ChatMessage > actions = new ArrayList< ChatMessage >();
 		if ( readExtra ) {
-			List< String > caught = MessageUtil.getMatches( message, "<(.*?)>" );
+			List< String > caught = MessageUtil.getMatches( message, "<(.+?)>" );
 			for ( String action : caught ) {
 				String hover = MessageUtil.getMatch( action, "\\{(.+?)\\}" );
 				String click = MessageUtil.getMatch( action, "\\((.+?\\:.+?)\\)" );
@@ -120,7 +128,7 @@ public class ChatMessage implements Cloneable, Serializable {
 					hAction = new HoverAction( HoverAction.Action.SHOW_TEXT, hover );
 					desc = desc.replace( "{" + hover + "}", "" );
 				}
-				ChatMessage description = ChatMessage.getMessageFromString( desc );
+				ChatMessage description = ChatMessage.getMessageFromString( desc, false );
 				for ( ChatComponent component : description.components ) {
 					component.setHoverAction( hAction );
 					component.setClickAction( cAction );

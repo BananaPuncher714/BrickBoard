@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import io.github.bananapuncher714.brickboard.DependencyManager;
@@ -39,10 +40,15 @@ public class ChatBoxSlate extends ChatBox {
 
 	@Override
 	public ConfigurationSection serialize() {
-		return null;
+		ConfigurationSection section = new YamlConfiguration();
+		section.set( "message", message.toString() );
+		return section;
 	}
 	
 	public static ChatBox deserialize( ConfigurationSection map ) {
-		return null;
+		if ( map == null ) {
+			return null;
+		}
+		return new ChatBoxSlate( ChatMessage.getMessageFromString( map.getString( "message" ), true ) );
 	}
 }
