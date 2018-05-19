@@ -88,6 +88,9 @@ public class ChatBoxChannel extends ChatBox {
 	}
 	
 	public static ChatBox deserialize( ConfigurationSection map ) {
+		if ( map == null ) {
+			return new ChatBoxChannel();
+		}
 		return new ChatBoxChannel( map.getString( "channel" ) );
 	}
 }

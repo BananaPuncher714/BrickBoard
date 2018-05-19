@@ -1,0 +1,5 @@
+required:
+  chatbox-id: "chatboxslate"
+  preset-id: "active channel"
+options:
+  message: "\u00a7b\u00a7lActive channel: \u00a76%brickboard_active_channel%"

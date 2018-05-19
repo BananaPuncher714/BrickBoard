@@ -3,6 +3,7 @@ package io.github.bananapuncher714.brickboard.gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
@@ -31,7 +32,7 @@ public class ChatBoxBoardSelector extends ChatBox {
 			}
 			ChatComponent component = new ChatComponent( "[" + board.getId() + "]" );
 			component.setClickAction( new ClickAction( ClickAction.Action.RUN_COMMAND, "/brickboard execute changeboard " + board.getId() ) );
-			component.setHoverAction( new HoverAction( HoverAction.Action.SHOW_TEXT, "Board Preview " + board.getId() + "\n" + board.getMessage( player ).getMessage() ) );
+			component.setHoverAction( new HoverAction( HoverAction.Action.SHOW_TEXT, ChatColor.BLUE + "Board Preview " + ChatColor.AQUA + board.getId() + "\n" + board.getMessage( player ).getMessage() ) );
 			message.addComponent( component );
 			message.addComponent( new ChatComponent( " " ) );
 		}

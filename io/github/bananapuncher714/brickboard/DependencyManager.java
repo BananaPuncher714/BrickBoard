@@ -10,6 +10,12 @@ public class DependencyManager {
 	public static final boolean placeholderAPI = Bukkit.getPluginManager().isPluginEnabled( "PlaceholderAPI" );
 	public static final boolean mvdwplaceholderAPI = Bukkit.getPluginManager().isPluginEnabled( "MVdWPlaceholderAPI" );
 
+	public static void init() {
+		if ( placeholderAPI ) {
+			ClipsPlaceholder.init();
+		}
+	}
+	
 	public static String parse( Player player, String message ) {
 		if ( placeholderAPI ) {
 			message = ClipsPlaceholder.parse( player, message );

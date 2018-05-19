@@ -98,6 +98,8 @@ public class BrickBoard extends JavaPlugin {
 		registerCommands();
 		registerChatBoxes();
 		
+		DependencyManager.init();
+		
 		Bukkit.getScheduler().runTaskLater( this, new Runnable() {
 			@Override
 			public void run() {
@@ -117,7 +119,13 @@ public class BrickBoard extends JavaPlugin {
 		
 		// Debug info here
 		File presetDir = new File( getDataFolder() + "/" + "presets" );
-		FileUtil.saveToFile( getResource( "data/presets/chat-filler.yml" ), new File( presetDir + "/" + "chat-filler.yml" ), false );
+		FileUtil.saveToFile( getResource( "data/presets/demo-filler-aqua.yml" ), new File( presetDir + "/" + "demo-filler-aqua.yml" ), false );
+		FileUtil.saveToFile( getResource( "data/presets/demo-channel.yml" ), new File( presetDir + "/" + "demo-channel.yml" ), false );
+		FileUtil.saveToFile( getResource( "data/presets/demo-header.yml" ), new File( presetDir + "/" + "demo-header.yml" ), false );
+		FileUtil.saveToFile( getResource( "data/presets/demo-flicker-test.yml" ), new File( presetDir + "/" + "demo-flicker-test.yml" ), false );
+		FileUtil.saveToFile( getResource( "data/presets/demo-slate.yml" ), new File( presetDir + "/" + "demo-slate.yml" ), false );
+		FileUtil.saveToFile( getResource( "data/presets/demo-tab-completes.yml" ), new File( presetDir + "/" + "demo-tab-completes.yml" ), false );
+		FileUtil.saveToFile( getResource( "data/presets/demo-active-channel.yml" ), new File( presetDir + "/" + "demo-active-channel.yml" ), false );
 		
 		File boardDir = new File( getDataFolder() + "/" + "boards" );
 		FileUtil.saveToFile( getResource( "data/boards/demo-board.yml" ), new File( boardDir + "/" + "demo-board.yml" ), false );

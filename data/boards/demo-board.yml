@@ -1,3 +1,10 @@
 board-id: "demo board"
 boxes:
-  0/0: "filler blue"
+  0/0: "demo header"
+  0/1: "channel panel"
+  0/2: "filler aqua"
+  0/3: "tab completes"
+  0/6: "filler aqua"
+  0/7: "flicker test"
+  0/10: "active channel"
+  0/11: "channel"

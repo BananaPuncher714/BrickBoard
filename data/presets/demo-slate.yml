@@ -1,0 +1,5 @@
+required:
+  chatbox-id: "chatboxslate"
+  preset-id: "channel panel"
+options:
+  message: "<\u00a77\u00a7l[Log]{View all raw messages}(run_command:/brickboard execute changechannel log)> <\u00a7b\u00a7l[Global]{View the global chat}(run_command:/brickboard execute changechannel global)> <\u00a76\u00a7l[Offtopic]{View the offtopic chat}(run_command:/brickboard execute changechannel offtopic)> <\u00a7d\u00a7l[Announcements]{View the announcements}(run_command:/brickboard execute changechannel announcements)> <\u00a7c\u00a7l[\u65E5\u672C\u8A9E]{Change channel to \u65E5\u672C\u8A9E}(run_command:/brickboard execute changechannel nihongo)> <\u00a7a[\u25B2]{Scroll up}(run_command:/brickboard execute scroll up)><\u00a7a[\u25BC]{Scroll down}(run_command:/brickboard execute scroll down)>"
