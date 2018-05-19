@@ -116,6 +116,8 @@ public class BrickBoard extends JavaPlugin {
 	
 	private void saveResources() {
 		saveResource( "README.md", true );
+		saveResource( "LICENSE", true );
+		FileUtil.saveToFile( getResource( "data/help/PERMISSIONS.md" ), new File( getDataFolder() + "/" + "PERMISSIONS.md" ), true );
 		
 		// Debug info here
 		File presetDir = new File( getDataFolder() + "/" + "presets" );
