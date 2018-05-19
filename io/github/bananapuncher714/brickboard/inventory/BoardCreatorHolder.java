@@ -3,6 +3,7 @@ package io.github.bananapuncher714.brickboard.inventory;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -33,7 +34,7 @@ public class BoardCreatorHolder extends BananaHolder {
 	Player player;
 	Inventory inventory;
 	int page = 0;
-	Map< ItemStack, ChatBox > parts = new HashMap< ItemStack, ChatBox >();
+	Map< UUID, ChatBox > parts = new HashMap< UUID, ChatBox >();
 	
 	public BoardCreatorHolder( Player player, Board template ) {
 		this.player = player;
@@ -74,7 +75,9 @@ public class BoardCreatorHolder extends BananaHolder {
 			item.setItemMeta( meta );
 			item = NBTEditor.setItemTag( item, ( byte ) 1, "brickboard", "inventory", "custom-item" );
 			item = NBTEditor.setItemTag( item, "edit-box", "brickboard", "inventory", "meta-1" );
-			parts.put( item, box );
+			UUID randUUID = UUID.randomUUID();
+			parts.put( randUUID, box );
+			item = NBTEditor.setItemTag( item, randUUID.toString(), "brickboard", "inventory", "meta-2" );
 			
 			BoxCoord coord = board.getContainers().get( box );
 			int col = ( int ) ( coord.getX() / slotWidth );
@@ -137,7 +140,9 @@ public class BoardCreatorHolder extends BananaHolder {
 			} else if ( meta.equalsIgnoreCase( "page-up" ) ) {
 				page = Math.max( 0, page - 1 );
 			} else if ( meta.equalsIgnoreCase( "edit-box" ) ) {
-				board.getContainers().remove( parts.get( item ) );
+				UUID uuid = UUID.fromString( ( String ) NBTEditor.getItemTag( item, "brickboard", "inventory", "meta-2" ) );
+				board.getContainers().remove( parts.get( uuid ) );
+				board.sort( true );
 			}
 		} else if ( cursor != null && cursor.getType() != Material.AIR ) {
 			if ( NBTEditor.getItemTag( cursor, "brickboard", "inventory", "custom-item" ) != null ) {
