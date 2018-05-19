@@ -45,7 +45,7 @@ public class HoverAction implements Cloneable, Serializable {
 	
 	@Override
 	public String toString() {
-		return "{" + message + "}";
+		return "{" + message.replace( "}", "\\}" ) + "}";
 	}
 	
 	@Override

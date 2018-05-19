@@ -45,7 +45,7 @@ public class ClickAction implements Cloneable, Serializable {
 
 	@Override
 	public String toString() {
-		return "(" + action.name() + ":" + message + ")";
+		return "(" + action.name() + ":" + message.replace( ")", "\\)" ) + ")";
 	}
 	
 	@Override

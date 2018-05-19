@@ -96,10 +96,11 @@ public class ChatMessage implements Cloneable, Serializable {
 
 		List< ChatMessage > actions = new ArrayList< ChatMessage >();
 		if ( readExtra ) {
-			List< String > caught = MessageUtil.getMatches( message, "<(.+?)>" );
+			// Thanks to StarShadow#3546 for negative look behind
+			List< String > caught = MessageUtil.getMatches( message, "<(.+?)(?<!\\\\)>" );
 			for ( String action : caught ) {
-				String hover = MessageUtil.getMatch( action, "\\{(.+?)\\}" );
-				String click = MessageUtil.getMatch( action, "\\((.+?\\:.+?)\\)" );
+				String hover = MessageUtil.getMatch( action, "\\{(.+?)(?<!\\\\)\\}" );
+				String click = MessageUtil.getMatch( action, "\\((.+?\\:.+?)(?<!\\\\)\\)" );
 				if ( hover == null && click == null ) {
 					// Requires a click or hover
 					continue;
