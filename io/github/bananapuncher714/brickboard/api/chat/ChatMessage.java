@@ -15,6 +15,7 @@ import io.github.bananapuncher714.brickboard.util.MessageUtil;
  * @author BananaPuncher714
  */
 public class ChatMessage implements Cloneable, Serializable {
+	private static String NEW_LINE_TOKEN = "-n";
 	private final static char PLACEHOLDER = '\u02A7';
 	private final List< ChatComponent > components = new ArrayList< ChatComponent >();
 
@@ -80,6 +81,10 @@ public class ChatMessage implements Cloneable, Serializable {
 		}
 		return builder.toString();
 	}
+	
+	public static void setNewLineToken(String newToken) {
+		NEW_LINE_TOKEN = newToken;	
+	}
 
 	public static ChatMessage getMessageFromString( String message ) {
 		return getMessageFromString( message, false );
@@ -126,7 +131,7 @@ public class ChatMessage implements Cloneable, Serializable {
 					}
 				}
 				if ( hover != null ) {
-					hAction = new HoverAction( HoverAction.Action.SHOW_TEXT, hover );
+					hAction = new HoverAction( HoverAction.Action.SHOW_TEXT, hover.replace(NEW_LINE_TOKEN, "\n") );
 					desc = desc.replace( "{" + hover + "}", "" );
 				}
 				ChatMessage description = ChatMessage.getMessageFromString( desc, false );
